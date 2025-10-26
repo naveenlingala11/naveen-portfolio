@@ -1,0 +1,43 @@
+.experience-card {
+  border-radius: 16px;
+  background: var(--card-bg);
+  padding: 25px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  border-left: 6px solid var(--primary-color);
+  position: relative;
+}
+.experience-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 22px 50px rgba(0,0,0,0.15);
+}
+.experience-card h5 {
+  color: var(--gradient-start);
+  font-weight: 600;
+}
+.experience-card h6 {
+  color: var(--muted);
+  font-weight: 500;
+  margin-bottom: 15px;
+}
+.experience-card ul {
+  list-style: none;
+  padding-left: 0;
+}
+.experience-card ul li::before {
+  content: "✅ ";
+  color: var(--primary-color);
+}
+.experience-projects span {
+  font-weight: 600;
+  margin-right: 10px;
+}
+.experience-projects a.badge {
+  margin-right: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.experience-projects a.badge:hover {
+  transform: scale(1.05);
+}

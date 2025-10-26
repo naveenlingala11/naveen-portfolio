@@ -1,0 +1,13 @@
+.contact-card {
+  border-radius: 16px;
+  background: var(--card-bg);
+  padding: 25px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+.contact-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 22px 50px rgba(0,0,0,0.15);
+}
+.contact-card a { color: var(--primary-color); text-decoration: none; }
+.contact-card a:hover { text-decoration: underline; }
