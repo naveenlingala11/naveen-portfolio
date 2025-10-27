@@ -159,3 +159,12 @@ body.dark-theme .profile-img:hover {
   font-size: 18px;
   color: var(--primary-color);
 }
+.lead {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: #3a3a3a;
+  text-align: justify;
+}
+.lead strong {
+  color: var(--primary-color);
+}

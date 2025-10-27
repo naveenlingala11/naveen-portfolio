@@ -50,6 +50,21 @@ export class App implements OnInit {
     this.scrollProgress = (scrollTop / docHeight) * 100;
   }
 
+  ngAfterViewInit(): void {
+    // Close mobile navbar after link click
+    const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+    const navbarCollapse = document.getElementById('navMenu');
+    const bsCollapse = new (window as any).bootstrap.Collapse(navbarCollapse!, { toggle: false });
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth < 992) { // only on mobile
+          bsCollapse.hide();
+        }
+      });
+    });
+  }
+
   updateProgress() {
     const doc = document.documentElement;
     const scrollTop = window.pageYOffset || doc.scrollTop || document.body.scrollTop || 0;

@@ -5,6 +5,7 @@
   box-shadow: 0 12px 30px rgba(0,0,0,0.08);
   transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
+
 .contact-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 22px 50px rgba(0,0,0,0.15);
