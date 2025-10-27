@@ -15,43 +15,98 @@ body.dark-theme {
 }
 
 /* Global layout */
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
 body {
   background-color: var(--bg-color);
   color: var(--text-color);
-  transition: background-color 0.35s ease, color 0.35s ease;
   font-family: 'Poppins', sans-serif;
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+/* Ensure router content fills space */
+main.main-content {
+  flex: 1 0 auto;
 }
 
 /* Navbar */
 .custom-navbar {
-  background: linear-gradient(135deg, #0d6efd, #6610f2);
-  transition: background 0.3s ease;
+  background: linear-gradient(90deg, #1a1a2e, #16213e, #0f3460);
+  padding: 0.7rem 1rem;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.navbar-brand {
+  color: #ffffff !important;
+  font-size: 1.3rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.brand-name {
+  background: linear-gradient(90deg, #ffb703, #fb8500);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
 }
 
 .navbar-nav .nav-link {
+  color: #dcdcdc !important;
   font-weight: 500;
-  color: #fff;
-  transition: color 0.3s ease, transform 0.3s ease;
+  margin-left: 1rem;
+  letter-spacing: 0.3px;
+  transition: color 0.3s, transform 0.3s;
 }
 
 .navbar-nav .nav-link:hover {
-  color: #ffdd57;
+  color: #ffb703 !important;
   transform: scale(1.1);
+  text-shadow: 0 0 8px rgba(255, 183, 3, 0.7);
 }
 
-.theme-btn {
-  background: linear-gradient(90deg, #ffdd57, #ffc107);
+/* Theme Toggle Button */
+.theme-toggle-btn {
+  background: linear-gradient(90deg, #ffb703, #fb8500);
   border: none;
-  color: #000;
+  color: #fff;
   font-weight: 600;
-  transition: transform 0.3s ease;
+  padding: 6px 14px;
+  border-radius: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.theme-btn:hover {
-  transform: scale(1.05);
+.theme-toggle-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 12px rgba(255, 183, 3, 0.5);
 }
 
-/* Scroll Progress */
+/* Navbar Shadow when Scrolling */
+.navbar.scrolled {
+  background: linear-gradient(90deg, #0f3460, #16213e);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+/* Mobile adjustments */
+@media (max-width: 991px) {
+  .navbar-nav {
+    text-align: center;
+    background: rgba(15, 52, 96, 0.95);
+    border-radius: 10px;
+    padding: 1rem;
+  }
+  .navbar-nav .nav-link {
+    margin: 8px 0;
+    font-size: 1.1rem;
+  }
+}
+
+/* Scroll Progress Bar */
 .scroll-progress {
   position: fixed;
   top: 0;
@@ -62,20 +117,172 @@ body {
   transition: width 0.2s ease;
 }
 
-
-/* Card base */
-.card {
-  background: var(--card-bg);
-  border: none;
-  border-radius: 12px;
-  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.06);
-  color: var(--text-color);
+/* Footer */
+.footer-section {
+  flex-shrink: 0;
+  background: linear-gradient(135deg, #2e64ef 0%, #2c0034 100%);
+  color: #e0e0e0;
+  padding: 40px 20px;
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: auto;
 }
 
-/* Utility */
-.section-wrapper {
-  padding: 80px 12%;
+.footer-section::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at center, rgba(0, 153, 255, 0.05), transparent 70%);
+  animation: floatLight 10s ease-in-out infinite alternate;
 }
-@media (max-width: 992px) {
-  .section-wrapper { padding: 60px 6%; }
+
+@keyframes floatLight {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(5%, 5%); }
+}
+
+.footer-heading {
+  font-weight: 600;
+  color: var(--primary-color, #00c6ff);
+  letter-spacing: 1px;
+}
+
+.footer-tagline {
+  max-width: 600px;
+  margin: 0 auto;
+  color: #aaa;
+  font-size: 1rem;
+}
+
+.footer-social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 10px;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+  color: #ccc;
+  font-size: 1.3rem;
+  transition: all 0.4s ease;
+  position: relative;
+}
+
+.footer-social a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  transition: 0.4s;
+}
+
+.footer-social a:hover {
+  color: #fff;
+  transform: translateY(-6px) scale(1.15);
+  background: linear-gradient(135deg, var(--primary-color, #00c6ff), var(--secondary-color, #0072ff));
+  box-shadow: 0 0 20px rgba(0, 198, 255, 0.5);
+}
+
+.footer-social a:hover::after {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.footer-divider {
+  width: 80%;
+  height: 2px;
+  margin: 25px auto;
+  background: linear-gradient(90deg, transparent, var(--primary-color, #00c6ff), transparent);
+  border-radius: 50px;
+  animation: glowLine 4s ease-in-out infinite alternate;
+}
+
+@keyframes glowLine {
+  0% { box-shadow: 0 0 8px var(--primary-color, #00c6ff); }
+  100% { box-shadow: 0 0 25px var(--secondary-color, #0072ff); }
+}
+
+.footer-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #00bfff;
+  letter-spacing: 1px;
+}
+
+.footer-bottom p {
+  color: #aaa;
+  margin-top: 4px;
+}
+
+@media (max-width: 576px) {
+  .footer-social a {
+    margin: 6px;
+    width: 40px;
+    height: 40px;
+  }
+  .footer-heading { font-size: 1.2rem; }
+  .footer-name { font-size: 1rem; }
+}
+
+
+/* === Star Background Layer === */
+.footer-section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: 
+    radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.9), transparent),
+    radial-gradient(2px 2px at 25% 40%, rgba(255,255,255,0.8), transparent),
+    radial-gradient(1.5px 1.5px at 40% 10%, rgba(255,255,255,0.7), transparent),
+    radial-gradient(2px 2px at 55% 70%, rgba(255,255,255,0.9), transparent),
+    radial-gradient(1px 1px at 60% 30%, rgba(255,255,255,0.8), transparent),
+    radial-gradient(1.8px 1.8px at 75% 50%, rgba(255,255,255,0.85), transparent),
+    radial-gradient(2px 2px at 85% 15%, rgba(255,255,255,0.9), transparent),
+    radial-gradient(1.5px 1.5px at 90% 60%, rgba(255,255,255,0.75), transparent),
+    radial-gradient(1px 1px at 15% 75%, rgba(255,255,255,0.7), transparent),
+    radial-gradient(1.8px 1.8px at 35% 85%, rgba(255,255,255,0.85), transparent),
+    radial-gradient(1.5px 1.5px at 45% 50%, rgba(255,255,255,0.9), transparent),
+    radial-gradient(2px 2px at 70% 90%, rgba(255,255,255,0.8), transparent),
+    radial-gradient(1px 1px at 80% 75%, rgba(255,255,255,0.75), transparent),
+    radial-gradient(1.5px 1.5px at 95% 40%, rgba(255,255,255,0.85), transparent),
+    radial-gradient(1px 1px at 5% 60%, rgba(255,255,255,0.8), transparent);
+  
+  background-repeat: repeat;
+  background-size: 100% 100%;
+  opacity: 0.6;
+  animation: twinklingStars 6s ease-in-out infinite alternate, moveStars 60s linear infinite;
+  z-index: 0;
+}
+
+/* ✨ Star twinkling animation */
+@keyframes twinklingStars {
+  0%, 100% {
+    opacity: 0.6;
+    filter: brightness(0.8);
+  }
+  50% {
+    opacity: 0.9;
+    filter: brightness(1.3);
+  }
+}
+
+/* 🌠 Subtle slow horizontal movement for realism */
+@keyframes moveStars {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -200px 100px;
+  }
+}
+
+/* Keep footer content above stars */
+.footer-section > .container {
+  position: relative;
+  z-index: 1;
 }

@@ -2,6 +2,7 @@
   <h2 class="text-center mb-5">Get in Touch</h2>
   
   <div class="row g-4">
+    <!-- Contact Info -->
     <div class="col-md-6" data-aos="fade-right" data-aos-delay="100">
       <div class="card p-4 contact-card">
         <h5>Email & Phone</h5>
@@ -9,20 +10,31 @@
         <p>Phone: <a href="tel:+917032084815">+91 7032084815</a></p>
       </div>
     </div>
+
+    <!-- Contact Form -->
     <div class="col-md-6" data-aos="fade-left" data-aos-delay="200">
       <div class="card p-4 contact-card">
         <h5>Send a Message</h5>
-        <form>
+        <form #contactForm="ngForm" (ngSubmit)="sendEmail(contactForm)">
           <div class="mb-3">
-            <input type="text" class="form-control" placeholder="Your Name" required>
+            <input type="text" class="form-control" placeholder="Your Name" name="name" ngModel required>
           </div>
           <div class="mb-3">
-            <input type="email" class="form-control" placeholder="Email Address" required>
+            <input type="email" class="form-control" placeholder="Email Address" name="email" ngModel required>
           </div>
           <div class="mb-3">
-            <textarea class="form-control" rows="4" placeholder="Your Message" required></textarea>
+            <textarea class="form-control" rows="4" placeholder="Your Message" name="message" ngModel required></textarea>
           </div>
-          <button type="submit" class="btn btn-primary">Send Message</button>
+          <button type="submit" class="btn btn-primary w-100" [disabled]="sending">
+            {{ sending ? 'Sending...' : 'Send Message' }}
+          </button>
+
+          <div class="mt-3 text-success text-center fw-semibold" *ngIf="successMessage">
+            {{ successMessage }}
+          </div>
+          <div class="mt-3 text-danger text-center fw-semibold" *ngIf="errorMessage">
+            {{ errorMessage }}
+          </div>
         </form>
       </div>
     </div>

@@ -11,3 +11,14 @@
 }
 .contact-card a { color: var(--primary-color); text-decoration: none; }
 .contact-card a:hover { text-decoration: underline; }
+
+form input, form textarea {
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  transition: all 0.3s ease;
+}
+
+form input:focus, form textarea:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 5px var(--primary-color);
+}

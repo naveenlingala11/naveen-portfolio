@@ -1,41 +1,107 @@
+/* Skill Card - Glassmorphic, Gradient Style */
 .skill-card {
-  border-radius: 16px;
-  background: linear-gradient(145deg, #fff, #f7f7f7);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  transition: all 0.4s ease;
   display: flex;
   align-items: flex-start;
-  padding: 1.5rem;
+  padding: 1.8rem;
+  border: 2px solid transparent;
+  position: relative;
+  overflow: hidden;
+  color: #fff;
 }
 
+/* Gradient Borders + Glow Animation */
+.skill-card::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  z-index: -1;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #ff416c, #ff4b2b, #007bff, #00d4ff);
+  background-size: 400% 400%;
+  animation: glowingBorder 6s ease infinite;
+  opacity: 0.8;
+}
+
+@keyframes glowingBorder {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Hover Animation */
 .skill-card:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 22px 50px rgba(0,0,0,0.15);
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
 }
 
+/* Icons with gradient tone */
 .skill-icon {
   font-size: 3rem;
-  color: var(--primary-color);
-  transition: transform 0.3s ease, color 0.3s ease;
+  background: linear-gradient(45deg, #ff8a00, #e52e71);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: transform 0.3s ease;
 }
 
 .skill-card:hover .skill-icon {
-  transform: scale(1.2) rotate(5deg);
-  color: var(--secondary-color);
+  transform: scale(1.2) rotate(6deg);
 }
 
+/* Headings */
 .skill-content h5 {
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 1.3rem;
   margin-bottom: 0.8rem;
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
+/* Descriptive Paragraphs */
 .skill-content p {
   font-size: 0.95rem;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.45rem;
   display: flex;
   align-items: center;
+  color: #f1f1f1;
 }
 
 .skill-content i {
   font-size: 1rem;
+  margin-right: 8px;
+  background: linear-gradient(45deg, #ff6f91, #ffc371);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
+
+/* Distinct Gradient Shades for Each Card */
+.skill-card:nth-child(1)::before {
+  background: linear-gradient(135deg, #2193b0, #6dd5ed);
+}
+.skill-card:nth-child(2)::before {
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+}
+.skill-card:nth-child(3)::before {
+  background: linear-gradient(135deg, #43cea2, #185a9d);
+}
+.skill-card:nth-child(4)::before {
+  background: linear-gradient(135deg, #f7971e, #ffd200);
+}
+.skill-card:nth-child(5)::before {
+  background: linear-gradient(135deg, #e53935, #e35d5b);
+}
+.skill-card:nth-child(6)::before {
+  background: linear-gradient(135deg, #7b4397, #dc2430);
+}
+.skill-card:nth-child(7)::before {
+  background: linear-gradient(135deg, #283c86, #45a247);
+}
+

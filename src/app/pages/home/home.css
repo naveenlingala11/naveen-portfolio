@@ -97,3 +97,21 @@ strong {
   color: #6610f2;
   transition: color 0.3s ease;
 }
+.hero-image-container {
+  width: 100%;
+  margin-top: 0;
+  padding-top: 0;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000; /* optional: adds background behind transparent images */
+}
+
+.hero-image {
+  width: 100%;
+  height: auto;         /* allows full image without cropping */
+  object-fit: contain;  /* shows full image without trimming */
+  display: block;
+  max-height: 100vh;    /* prevents it from going beyond viewport */
+}

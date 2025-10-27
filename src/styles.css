@@ -6,7 +6,7 @@
   --card-bg: #f8f9fa;
   --text-color: #1f2937;
   --muted: #6c757d;
-  --gradient-start: #0d6efd;
+    --gradient-start: #007bff;
   --gradient-end: #6610f2;
 }
 
@@ -18,8 +18,8 @@ body.dark-theme {
   --card-bg: #121925;
   --text-color: #e6eef8;
   --muted: #9aa8bd;
-  --gradient-start: #2db0ff;
-  --gradient-end: #9b59b6;
+  --gradient-start: #00c6ff;
+  --gradient-end: #ffb703;
 }
 
 body {
@@ -28,13 +28,29 @@ body {
   font-family: 'Poppins', sans-serif;
   transition: background-color 0.5s ease, color 0.5s ease;
 }
-
-/* Gradient heading */
 h2 {
-  background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
-  /* -webkit-background-clip: text; */
-  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+  font-size: 2rem;
+  text-align: center;
+  letter-spacing: 1px;
+  background: linear-gradient(
+    90deg,
+    var(--gradient-start, #007bff),
+    var(--gradient-end, #6610f2)
+  );
+  -webkit-background-clip: text;   /* ✅ makes the gradient visible */
+  -webkit-text-fill-color: transparent; /* ✅ allows gradient inside text */
+  background-clip: text; /* ✅ fallback for non-webkit browsers */
+  color: transparent; /* ensures no default color overrides gradient */
+  margin-bottom: 1rem;
+  transition: all 0.3s ease-in-out;
 }
+
+/* Optional subtle glowing effect on hover */
+h2:hover {
+  filter: brightness(1.2) drop-shadow(0 0 8px rgba(100, 149, 237, 0.6));
+}
+
 
 /* Card shadows and hover effect */
 .card {
@@ -89,4 +105,8 @@ h2 {
 .social-icons a:hover {
   color: var(--primary-color);
   transform: scale(1.2);
+}
+/* Fix content starting below fixed navbar */
+.main-content {
+  padding-top: 60px; /* Adjust if your navbar height is more or less */
 }
