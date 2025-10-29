@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiBaseUrl: 'https://naveen-portfolio-backend.onrender.com/api'
+  apiBaseUrl: 'https://naveen-portfolio-backend.onrender.com'
 };
