@@ -1,6 +1,6 @@
 <section class="section-wrapper" data-aos="fade-up">
   <h2 class="text-center mb-5">Get in Touch</h2>
-  
+
   <div class="row g-4">
     <!-- Contact Info -->
     <div class="col-md-6" data-aos="fade-right" data-aos-delay="100">
@@ -17,26 +17,85 @@
         <h5>Send a Message</h5>
         <form #contactForm="ngForm" (ngSubmit)="sendEmail(contactForm)">
           <div class="mb-3">
-            <input type="text" class="form-control" placeholder="Your Name" name="name" ngModel required>
+            <input type="text" class="form-control" placeholder="Your Name" name="name" ngModel required />
           </div>
           <div class="mb-3">
-            <input type="email" class="form-control" placeholder="Email Address" name="email" ngModel required>
+            <input type="email" class="form-control" placeholder="Email Address" name="email" ngModel required />
           </div>
           <div class="mb-3">
-            <textarea class="form-control" rows="4" placeholder="Your Message" name="message" ngModel required></textarea>
+            <textarea class="form-control" rows="4" placeholder="Your Message" name="message" ngModel
+              required></textarea>
           </div>
           <button type="submit" class="btn btn-primary w-100" [disabled]="sending">
             {{ sending ? 'Sending...' : 'Send Message' }}
           </button>
-
-          <div class="mt-3 text-success text-center fw-semibold" *ngIf="successMessage">
-            {{ successMessage }}
-          </div>
-          <div class="mt-3 text-danger text-center fw-semibold" *ngIf="errorMessage">
-            {{ errorMessage }}
-          </div>
+          <div class="mt-3 text-success text-center fw-semibold" *ngIf="successMessage">{{ successMessage }}</div>
+          <div class="mt-3 text-danger text-center fw-semibold" *ngIf="errorMessage">{{ errorMessage }}</div>
         </form>
       </div>
     </div>
   </div>
-</section>
+
+  <!-- ❤️ Like and Feedback Section -->
+  <div class="feedback-section mt-5" data-aos="fade-up">
+    <h3 class="text-center mb-4">Share Your Feedback 💬</h3>
+
+    <!-- Like Section -->
+    <div class="text-center mt-4">
+      <button class="btn btn-outline-primary" (click)="onLike()">👍 Like ({{ likes }})</button>
+    </div>
+
+    <!-- Feedback Form -->
+    <div class="card feedback-card p-4 mx-auto mt-4">
+      <h5 class="mb-3">Leave a Review</h5>
+      <form #reviewForm="ngForm" (ngSubmit)="submitReview(reviewForm)">
+        <input type="text" class="form-control mb-3" placeholder="Your Name" name="name" [(ngModel)]="review.name"
+          required />
+        <input type="email" class="form-control mb-3" placeholder="Your Email" name="email" [(ngModel)]="review.email"
+          required />
+        <textarea class="form-control mb-3" rows="3" placeholder="Your Feedback" name="message"
+          [(ngModel)]="review.message" required></textarea>
+
+        <!-- ⭐ Star Rating -->
+        <div class="rating mb-3 text-center">
+          <i *ngFor="let star of [1,2,3,4,5]" class="fas fa-star" [class.filled]="star <= review.rating"
+            (click)="setRating(star)">
+          </i>
+        </div>
+
+        <!-- 🧠 reCAPTCHA -->
+        <div class="d-flex justify-content-center my-3">
+          <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div>
+        </div>
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+        <button type="submit" class="btn btn-success w-100">Submit Review</button>
+      </form>
+    </div>
+
+    <!-- 🆕 Latest Review -->
+    <div class="latest-review mt-5 text-center" *ngIf="latestReview" data-aos="fade-up">
+      <div class="card shadow-sm border-0 p-4 mx-auto" style="max-width: 600px; border-radius: 20px;">
+        <h4 class="mb-3">🆕 Latest Review</h4>
+
+        <blockquote class="blockquote mb-3 fst-italic text-secondary">
+          “{{ latestReview.message }}”
+        </blockquote>
+
+        <footer class="blockquote-footer fw-semibold">
+          {{ latestReview.name }} &nbsp;
+          <span class="text-warning">
+            <i *ngFor="let star of [1,2,3,4,5]" class="fa-star" [class.fas]="star <= latestReview.rating"
+              [class.far]="star > latestReview.rating">
+            </i>
+          </span>
+          <div class="small text-muted mt-1">{{ latestReview.createdAt | date:'medium' }}</div>
+        </footer>
+
+        <button class="btn btn-outline-primary mt-4 px-4" (click)="viewAllReviews()">
+          <i class="fas fa-comments me-2"></i> View All Reviews
+        </button>
+      </div>
+    </div>
+  </div>
+</section>  
