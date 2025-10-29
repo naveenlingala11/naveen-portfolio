@@ -1,59 +1,70 @@
-# NaveenPortfolio
+🧩 1️⃣ FRONTEND — Angular (Netlify)
+📁 Folder
+frontend/
+└── naveen-portfolio/
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.2.2.
+⚙️ Setup & Run Locally
+1. Install dependencies
+npm install
 
-## Development server
-
-To start a local development server, run:
-
-```bash
+2. Start development server
 ng serve
-```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
-## Code scaffolding
+👉 Opens at: http://localhost:4200
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+🏗️ Production Build
+1. Build Angular for production
+ng build --configuration production
 
-```bash
-ng generate component component-name
-```
+2. Output folder
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Default:
 
-```bash
-ng generate --help
-```
+dist/naveen-portfolio/browser/
 
-## Building
+🌐 Netlify Deployment
+1. Create _redirects file for Angular routing
 
-To build the project run:
+Create this file inside src/ folder (so it persists after each build):
 
-```bash
-ng build
-```
+src/_redirects
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+/*    /index.html   200
 
-## Running unit tests
+2. Rebuild
+ng build --configuration production
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
 
-```bash
-ng test
-```
+Verify that _redirects is present inside:
 
-## Running end-to-end tests
+dist/naveen-portfolio/browser/_redirects
 
-For end-to-end (e2e) testing, run:
+3. Deploy on Netlify
 
-```bash
-ng e2e
-```
+Log in to Netlify
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Click Add new site → Import an existing project
 
-## Additional Resources
+Connect your GitHub repo
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Set build settings:
+
+Build command: npm run build
+
+Publish directory: dist/naveen-portfolio/browser
+
+Deploy 🚀
+
+🌍 Environment Configuration
+src/environments/environment.ts
+export const environment = {
+  production: false,
+  apiBaseUrl: 'http://localhost:8080'
+};
+
+src/environments/environment.prod.ts
+export const environment = {
+  production: true,
+  apiBaseUrl: 'https://naveen-portfolio-backend.onrender.com'
+};
