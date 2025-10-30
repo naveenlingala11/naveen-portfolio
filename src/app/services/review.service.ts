@@ -17,9 +17,9 @@ export class ReviewService {
     return this.http.get<number>(`${this.likeUrl}`);
   }
 
-  toggleLike(userId: string): Observable<number> {
-    return this.http.post<number>(`${this.likeUrl}/toggle/${userId}`, {});
-  }
+  toggleLike(userId: string): Observable<any> {
+  return this.http.post(`${this.likeUrl}/toggle/${userId}`, {}); // empty body
+}
 
   hasLiked(userId: string): Observable<boolean> {
     return this.http.get<boolean>(`${this.likeUrl}/user/${userId}`);

@@ -94,26 +94,34 @@ export class Contact implements OnInit {
   /** 💬 Submit Review */
   submitReview(form: NgForm) {
     if (form.invalid) {
-      alert('Please fill in all fields correctly.');
+      this.errorMessage = '⚠️ Please fill in all fields correctly.';
+      setTimeout(() => (this.errorMessage = ''), 3000);
       return;
     }
 
     const review = {
       ...this.review,
-      date: new Date().toISOString()
+      date: new Date().toISOString(),
     };
 
-    // ✅ Use POST to submit review
     this.http.post('http://localhost:8080/api/reviews', review).subscribe({
       next: (res) => {
         console.log('✅ Review submitted:', res);
-        this.loadReviews(); // reload latest
+        this.successMessage = '🎉 Thank you! Your review has been submitted.';
+        this.errorMessage = '';
+        this.loadReviews();
         form.resetForm();
-        alert('Thank you! Your review has been submitted.');
+
+        // Automatically clear message after 3 seconds
+        setTimeout(() => (this.successMessage = ''), 3000);
+
+        // Optionally scroll smoothly to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       },
       error: (err) => {
         console.error('❌ Error submitting review:', err);
-        alert('Failed to submit review. Try again later.');
+        this.errorMessage = '❌ Failed to submit review. Try again later.';
+        setTimeout(() => (this.errorMessage = ''), 3000);
       },
     });
   }
@@ -134,15 +142,21 @@ export class Contact implements OnInit {
 
   /** 🔁 Load All Reviews */
   loadReviews() {
-    this.http.get<Review[]>('http://localhost:8080/api/reviews').subscribe({
+    this.http.get<any>('http://localhost:8080/api/reviews').subscribe({
       next: (data) => {
-        this.reviews = data.sort((a, b) =>
-          new Date(b.createdAt || '').getTime() - new Date(a.createdAt || '').getTime()
-        );
+        if (Array.isArray(data)) {
+          this.reviews = data.sort((a, b) =>
+            new Date(b.createdAt || '').getTime() - new Date(a.createdAt || '').getTime()
+          );
+        } else {
+          console.warn('Expected array but got:', data);
+          this.reviews = []; // fallback
+        }
       },
       error: err => console.error('Error loading reviews:', err)
     });
   }
+
 
   /** 🆕 Load Latest Review */
   loadLatestReview() {

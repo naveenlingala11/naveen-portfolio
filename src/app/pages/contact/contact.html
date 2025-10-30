@@ -71,6 +71,13 @@
 
         <button type="submit" class="btn btn-success w-100">Submit Review</button>
       </form>
+      <!-- ✅ Feedback Messages -->
+      <div *ngIf="successMessage" class="alert alert-success text-center mt-3">
+        {{ successMessage }}
+      </div>
+      <div *ngIf="errorMessage" class="alert alert-danger text-center mt-3">
+        {{ errorMessage }}
+      </div>
     </div>
 
     <!-- 🆕 Latest Review -->
@@ -98,4 +105,4 @@
       </div>
     </div>
   </div>
-</section>  
+</section>
