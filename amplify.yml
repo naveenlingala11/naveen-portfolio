@@ -8,7 +8,8 @@ frontend:
       commands:
         - npm run build -- --configuration production
   artifacts:
-    baseDirectory: dist/naveen-portfolio
+    # 👇 Notice the browser folder
+    baseDirectory: dist/naveen-portfolio/browser
     files:
       - '**/*'
   cache:
