@@ -8,17 +8,12 @@ frontend:
       commands:
         - npm run build -- --configuration production
   artifacts:
-    baseDirectory: dist/naveen-portfolio/browser
+    baseDirectory: dist/naveen-portfolio
     files:
       - '**/*'
   cache:
     paths:
       - node_modules/**/*
-  customHeaders:
-    - pattern: '**/*'
-      headers:
-        - key: 'Cache-Control'
-          value: 'public,max-age=31536000'
   rewritesAndRedirects:
     - source: '/<*>'
       target: '/index.html'

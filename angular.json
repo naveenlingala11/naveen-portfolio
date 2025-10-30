@@ -46,7 +46,7 @@
           },
           "configurations": {
             "production": {
-              "outputPath": "dist/naveen-portfolio/browser", 
+              "outputPath": "dist/naveen-portfolio",
               "budgets": [
                 {
                   "type": "initial",
