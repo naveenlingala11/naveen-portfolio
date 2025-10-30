@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Review } from '../model/review';
-import { environment } from '../../environment.prod';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -27,8 +27,10 @@ export class ReviewService {
 
   // Reviews
   getReviews(page: number = 0, size: number = 5): Observable<any> {
-    return this.http.get<any>(`${this.reviewUrl}?page=${page}&size=${size}`);
-  }
+    const url = `${this.reviewUrl}?page=${page}&size=${size}`;
+    console.log('📡 Fetching reviews from:', url);
+    return this.http.get<any>(url);
+}
 
   submitReview(review: Review): Observable<Review> {
     return this.http.post<Review>(this.reviewUrl, review);

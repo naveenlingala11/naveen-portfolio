@@ -3,51 +3,49 @@
 
   <div class="container">
     <!-- Reviews -->
-<div *ngIf="reviews && reviews.length > 0; else noReviews">
-      <div
-        *ngFor="let review of reviews"
-        class="review-card mb-4 p-4 rounded-4 shadow-sm bg-white border-0 position-relative"
-        data-aos="fade-up"
-        data-aos-delay="100"
-      >
-        <div class="d-flex justify-content-between align-items-center mb-2">
-          <div>
-            <h5 class="mb-0 text-primary">
-              <i class="fas fa-user-circle me-2 text-secondary"></i>{{ review.name }}
-            </h5>
-            <small class="text-muted">{{ review.email }}</small>
-          </div>
-          <div class="rating text-warning">
-            <i
-              *ngFor="let star of [1,2,3,4,5]"
-              class="fa-star"
-              [class.fas]="star <= review.rating"
-              [class.far]="star > review.rating"
-            ></i>
-          </div>
-        </div>
-
-        <p class="mt-2 fst-italic text-secondary">
-          “{{ review.message }}”
-        </p>
-
-        <div class="text-end">
-          <small class="text-muted">
-            <i class="far fa-clock me-1"></i>
-            {{ review.createdAt | date:'medium' }}
-          </small>
-        </div>
+<div *ngIf="!loading && reviews.length > 0; else noReviews">
+  <div
+    *ngFor="let review of reviews"
+    class="review-card mb-4 p-4 rounded-4 shadow-sm bg-white border-0 position-relative"
+    data-aos="fade-up"
+    data-aos-delay="100"
+  >
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <div>
+        <h5 class="mb-0 text-primary">
+          <i class="fas fa-user-circle me-2 text-secondary"></i>{{ review.name }}
+        </h5>
+        <small class="text-muted">{{ review.email }}</small>
+      </div>
+      <div class="rating text-warning">
+        <i
+          *ngFor="let star of [1,2,3,4,5]"
+          class="fa-star"
+          [class.fas]="star <= review.rating"
+          [class.far]="star > review.rating"
+        ></i>
       </div>
     </div>
 
-    <!-- Fallback if no reviews -->
-    <ng-template #noReviews>
-      <div class="text-center p-5 text-muted">
-        <i class="fas fa-comment-dots fa-2x mb-2"></i>
-        <p>No reviews yet. Be the first to share your thoughts!</p>
-      </div>
-    </ng-template>
+    <p class="mt-2 fst-italic text-secondary">
+      “{{ review.message }}”
+    </p>
+
+    <div class="text-end">
+      <small class="text-muted">
+        <i class="far fa-clock me-1"></i>
+        {{ review.createdAt | date:'medium' }}
+      </small>
+    </div>
   </div>
+</div>
+
+<ng-template #noReviews>
+  <div class="text-center p-5 text-muted">
+    <i class="fas fa-comment-dots fa-2x mb-2"></i>
+    <p>No reviews yet. Be the first to share your thoughts!</p>
+  </div>
+</ng-template>
 
   <!-- Pagination -->
   <div class="pagination d-flex justify-content-center align-items-center mt-4">
@@ -70,5 +68,6 @@
     >
       Next <i class="fas fa-chevron-right"></i>
     </button>
+  </div>
   </div>
 </section>

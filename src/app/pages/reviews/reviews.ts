@@ -14,8 +14,10 @@ export class ReviewsComponent implements OnInit {
   page = 0;
   totalPages = 1;
   pageSize = 5; // 👈 number of reviews per page (adjustable)
+  loading = false;
 
-  constructor(private reviewService: ReviewService) {}
+
+  constructor(private reviewService: ReviewService) { }
 
   ngOnInit() {
     this.loadReviews();
@@ -23,16 +25,19 @@ export class ReviewsComponent implements OnInit {
 
   // ✅ Load all reviews from backend
   loadReviews() {
-    this.reviewService.getReviews().subscribe({
+    this.loading = true;
+    this.reviewService.getReviews(this.page, this.pageSize).subscribe({
       next: (res) => {
-        // handle both paged and array responses
-        const data = res.content || res;
-        this.reviews = Array.isArray(data) ? data : [];
-        this.totalPages = Math.ceil(this.reviews.length / this.pageSize);
+        // ✅ res.content contains actual data
+        const reviews = Array.isArray(res) ? res : res.content; // 👈 handles both formats
+        this.reviews = res.content || [];
+        this.totalPages = res.totalPages || 1;
+        this.loading = false;
       },
       error: (err) => {
         console.error('Error loading reviews:', err);
         this.reviews = [];
+        this.loading = false;
       }
     });
   }

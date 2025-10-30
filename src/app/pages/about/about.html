@@ -23,8 +23,9 @@
     <div class="col-lg-8" data-aos="fade-left">
       <h2 class="about-heading mb-3">About Me</h2>
       <p class="lead mx-auto mb-3" style="max-width:900px">
-        Hi, I’m <strong class="lead strong " ><b><i>Lingala Naveen Kumar</i></b></strong> — a results-driven and detail-oriented <strong class="lead strong "><b><i>Senior Software
-          Engineer</i></b></strong>
+        Hi, I’m <strong class="lead strong "><b><i>Lingala Naveen Kumar</i></b></strong> — a results-driven and
+        detail-oriented <strong class="lead strong "><b><i>Senior Software
+              Engineer</i></b></strong>
         with a deep passion for building meaningful digital solutions that make everyday life simpler and smarter.
       </p>
       <p class="lead mx-auto mb-3" style="max-width:900px">
@@ -37,7 +38,7 @@
         reading about leadership and innovation, or simply improving a little every day. I find joy in mentoring peers,
         sharing ideas, and contributing to environments where creativity and growth go hand in hand.
       </p>
-     <p class="lead mx-auto mb-3" style="max-width:900px">
+      <p class="lead mx-auto mb-3" style="max-width:900px">
         My journey so far has been shaped by curiosity, integrity, and a passion for excellence — and I’m always excited
         about what’s next in the evolving world of technology and human connection.
       </p>
@@ -71,6 +72,15 @@
       <div class="mt-4">
         <a routerLink="/experience" class="btn btn-primary me-2"><i class="fas fa-briefcase"></i> View Experience</a>
         <a routerLink="/contact" class="btn btn-outline-primary"><i class="fas fa-paper-plane"></i> Contact Me</a>
+
+        <!-- 🔐 Admin Login / Logout -->
+        <button *ngIf="!authService.isLoggedIn()" routerLink="/login" class="btn btn-outline-primary ms-2">
+          Admin Login
+        </button>
+
+        <button *ngIf="authService.isLoggedIn()" (click)="authService.logout()" class="btn btn-outline-danger ms-2">
+          Logout
+        </button>
       </div>
     </div>
   </div>

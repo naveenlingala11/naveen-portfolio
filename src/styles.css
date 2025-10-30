@@ -1,112 +1,267 @@
+/* =========================
+   Global theme variables (light + dark)
+   ========================= */
+
 :root {
-  --primary-color: #0d6efd;
-  --secondary-color: #6610f2;
-  --accent-color: #198754;
-  --bg-color: #ffffff;
-  --card-bg: #f8f9fa;
-  --text-color: #1f2937;
-  --muted: #6c757d;
-    --gradient-start: #007bff;
+  --primary-color: #2563eb;
+  --secondary-color: #9333ea;
+  --accent-color: #14b8a6;
+  --bg-color: #f9fafb;
+  --card-bg: #ffffff;
+  --text-color: #1e293b;
+  --muted: #64748b;
+
+  --navbar-gradient: linear-gradient(90deg, #2563eb, #60a5fa);
+  --footer-gradient: linear-gradient(135deg, #3b82f6, #9333ea);
+
+  --gradient-start: #007bff;
   --gradient-end: #6610f2;
 }
 
+/* Dark theme overrides */
 body.dark-theme {
-  --primary-color: #2db0ff;
-  --secondary-color: #9b59b6;
-  --accent-color: #28a745;
-  --bg-color: #0b1220;
+  --primary-color: #60a5fa;
+  --secondary-color: #a855f7;
+  --accent-color: #06b6d4;
+  --bg-color: #0f172a;
   --card-bg: #121925;
   --text-color: #e6eef8;
-  --muted: #9aa8bd;
+  --muted: #94a3b8;
+
+  --navbar-gradient: linear-gradient(90deg, #1e1b4b, #312e81);
+  --footer-gradient: linear-gradient(135deg, #3b0764, #1e3a8a);
+
   --gradient-start: #00c6ff;
   --gradient-end: #ffb703;
+}
+
+/* Base */
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
   background-color: var(--bg-color);
   color: var(--text-color);
   font-family: 'Poppins', sans-serif;
-  transition: background-color 0.5s ease, color 0.5s ease;
+  transition: background-color 0.35s ease, color 0.35s ease, background 0.5s ease;
 }
+
+/* =========================
+   App / Layout
+   ========================= */
+
+main.main-content {
+  flex: 1 0 auto;
+  padding-top: 72px; /* keep space below fixed navbar */
+}
+
+/* Scroll Progress Bar */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  z-index: 1050;
+  transition: width 0.2s ease;
+}
+
+/* =========================
+   Navbar (merged + improved)
+   ========================= */
+
+.custom-navbar {
+  background: var(--navbar-gradient);
+  padding: 1rem 1.25rem; /* ⬆ increased thickness */
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.navbar-brand {
+  color: #ffffff !important;
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.brand-name {
+  background: linear-gradient(90deg, #ffb703, #fb8500);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+}
+
+.navbar-nav .nav-link {
+  color: rgba(255,255,255,0.95) !important;
+  font-weight: 500;
+  margin-left: 1rem;
+  letter-spacing: 0.3px;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.navbar-nav .nav-link:hover {
+  color: var(--accent-color) !important;
+  transform: scale(1.04);
+}
+
+/* Theme toggle style */
+.theme-toggle-btn {
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.theme-toggle-btn:hover {
+  transform: scale(1.06);
+  box-shadow: 0 0 12px rgba(0,0,0,0.12);
+}
+
+/* Shadow when scrolled */
+.navbar.scrolled {
+  box-shadow: 0 4px 18px rgba(0,0,0,0.18);
+}
+
+/* Mobile adjustments */
+@media (max-width: 991px) {
+  .navbar-nav {
+    text-align: center;
+    background: rgba(15, 52, 96, 0.95);
+    border-radius: 10px;
+    padding: 1rem;
+  }
+  .navbar-nav .nav-link { margin: 8px 0; font-size: 1.05rem; }
+}
+
+.theme-toggle-btn, .nav-link i {
+  transition: transform 0.2s ease, color 0.3s ease;
+}
+
+.theme-toggle-btn:hover i,
+.nav-link:hover i {
+  transform: scale(1.2);
+  color: var(--bs-warning);
+}
+
+/* =========================
+   Cards / typography
+   ========================= */
+
 h2 {
   font-weight: 700;
   font-size: 2rem;
   text-align: center;
-  letter-spacing: 1px;
-  background: linear-gradient(
-    90deg,
-    var(--gradient-start, #007bff),
-    var(--gradient-end, #6610f2)
-  );
-  -webkit-background-clip: text;   /* ✅ makes the gradient visible */
-  -webkit-text-fill-color: transparent; /* ✅ allows gradient inside text */
-  background-clip: text; /* ✅ fallback for non-webkit browsers */
-  color: transparent; /* ensures no default color overrides gradient */
+  background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
   margin-bottom: 1rem;
   transition: all 0.3s ease-in-out;
 }
 
-/* Optional subtle glowing effect on hover */
-h2:hover {
-  filter: brightness(1.2) drop-shadow(0 0 8px rgba(100, 149, 237, 0.6));
-}
-
-
-/* Card shadows and hover effect */
 .card {
-  border-radius: 16px;
+  border-radius: 12px;
   background: var(--card-bg);
-  padding: 20px;
+  padding: 1.2rem;
   transition: transform 0.35s ease, box-shadow 0.35s ease;
-  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.08);
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.06);
 }
 .card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.12);
 }
 
-/* Buttons gradient */
+/* Buttons */
 .btn-primary {
   background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  color: #fff;
   border: none;
-  transition: background 0.4s ease;
+  transition: transform 0.25s ease;
 }
-.btn-primary:hover {
-  background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
-}
-
-/* Theme toggle */
-.theme-btn {
-  background: var(--primary-color);
-  border-radius: 24px;
-  padding: 8px 16px;
-  font-weight: 500;
-  transition: 0.4s ease;
-}
-.theme-btn:hover {
-  background: var(--secondary-color);
-}
+.btn-primary:hover { transform: translateY(-2px); }
 
 /* Section spacing */
-.section-wrapper {
-  padding: 100px 12%;
-  scroll-margin-top: 70px;
-}
-@media (max-width: 992px) { .section-wrapper { padding: 60px 6%; } }
-@media (max-width: 576px) { .section-wrapper { padding: 40px 6%; } }
+.section-wrapper { padding: 100px 12%; scroll-margin-top: 70px; }
+@media (max-width:992px) { .section-wrapper { padding: 60px 6%; } }
+@media (max-width:576px) { .section-wrapper { padding: 40px 6%; } }
 
-.social-icons a {
-  color: var(--text-color);
-  font-size: 20px;
-  margin: 0 10px;
-  transition: color 0.3s ease, transform 0.3s ease;
+/* =========================
+   Footer (merged)
+   ========================= */
+
+.footer-section {
+  background: var(--footer-gradient);
+  color: #e8eefb;
+  padding: 40px 20px;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.5s ease;
 }
 
-.social-icons a:hover {
-  color: var(--primary-color);
-  transform: scale(1.2);
+.footer-heading { font-weight: 600; color: #fff; }
+.footer-tagline { max-width: 600px; margin: 0 auto; color: rgba(255,255,255,0.85); }
+
+.footer-social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 8px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+  font-size: 1.15rem;
+  transition: all 0.35s ease;
 }
-/* Fix content starting below fixed navbar */
-.main-content {
-  padding-top: 60px; /* Adjust if your navbar height is more or less */
+.footer-social a:hover {
+  transform: translateY(-6px) scale(1.12);
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  box-shadow: 0 8px 22px rgba(0,0,0,0.18);
+}
+
+.footer-divider {
+  width: 80%;
+  height: 2px;
+  margin: 24px auto;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  border-radius: 50px;
+}
+
+/* Keep footer content above background decorations */
+.footer-section > .container { position: relative; z-index: 1; }
+
+/* small smooth transitions everywhere */
+* { transition: background 0.35s ease, color 0.35s ease, border-color 0.35s ease; }
+
+/* =========================
+   Aurora Animation Enhancement
+   ========================= */
+
+@keyframes auroraShift {
+  0% { background-position: 0% 50%; filter: brightness(1); }
+  50% { background-position: 100% 50%; filter: brightness(1.1); }
+  100% { background-position: 0% 50%; filter: brightness(1); }
+}
+
+.custom-navbar,
+.footer-section {
+  background-size: 200% 200%;
+  animation: auroraShift 15s ease infinite;
+  transition: background 0.5s ease, filter 0.3s ease;
 }

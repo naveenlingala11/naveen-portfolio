@@ -16,18 +16,39 @@
     </button>
 
     <!-- Navigation Links (Right) -->
-    <div class="collapse navbar-collapse justify-content-end" id="navMenu">
+    <div class="collapse navbar-collapse justify-content-end" id="navMenu" #navMenu>
       <ul class="navbar-nav align-items-center">
-        <li class="nav-item"><a class="nav-link d-flex align-items-center" routerLink="/"><i class="fas fa-home me-1"></i> Home</a></li>
-        <li class="nav-item"><a class="nav-link d-flex align-items-center" routerLink="/about"><i class="fas fa-user me-1"></i> About</a></li> 
-        <li class="nav-item"><a class="nav-link d-flex align-items-center" routerLink="/experience"><i class="fas fa-briefcase me-1"></i> Experience</a></li> 
-        <li class="nav-item"><a class="nav-link d-flex align-items-center" routerLink="/projects"><i class="fas fa-project-diagram me-1"></i> Projects</a></li> 
-        <li class="nav-item"><a class="nav-link d-flex align-items-center" routerLink="/skills"><i class="fas fa-lightbulb me-1"></i> Skills</a></li> 
-        <li class="nav-item"><a class="nav-link d-flex align-items-center" routerLink="/contact"><i class="fas fa-envelope me-1"></i> Contact</a></li>
+        <li class="nav-item"><a class="nav-link d-flex align-items-center" routerLink="/"><i class="fas fa-home me-1"
+              (click)="closeMenu(navMenu)"></i> Home</a></li>
+        <li class="nav-item"><a class="nav-link d-flex align-items-center" routerLink="/about"><i
+              class="fas fa-user me-1" (click)="closeMenu(navMenu)"></i> About</a></li>
+        <li class="nav-item"><a class="nav-link d-flex align-items-center" routerLink="/experience"><i
+              class="fas fa-briefcase me-1" (click)="closeMenu(navMenu)"></i> Experience</a></li>
+        <li class="nav-item"><a class="nav-link d-flex align-items-center" routerLink="/projects"><i
+              class="fas fa-project-diagram me-1" (click)="closeMenu(navMenu)"></i> Projects</a></li>
+        <li class="nav-item"><a class="nav-link d-flex align-items-center" routerLink="/skills"><i
+              class="fas fa-lightbulb me-1" (click)="closeMenu(navMenu)"></i> Skills</a></li>
+        <li class="nav-item"><a class="nav-link d-flex align-items-center" routerLink="/contact"><i
+              class="fas fa-envelope me-1" (click)="closeMenu(navMenu)"></i> Contact</a></li>
+
+        <!-- Theme toggle (keeps your existing button position) -->
         <li class="nav-item ms-3">
-          <button class="btn theme-toggle-btn" (click)="toggleTheme()">
-            <ng-container *ngIf="isDarkMode">🌞 Light</ng-container>
-            <ng-container *ngIf="!isDarkMode">🌙 Dark</ng-container>
+          <button class="theme-toggle-btn" (click)="toggleTheme()">
+            <i class="fas" [ngClass]="isDarkMode ? 'fa-sun' : 'fa-moon'"></i>
+            <span>{{ isDarkMode ? '🌙Dark' :'🌞Light' }}</span>
+          </button>
+          <!-- 🔹 Show only when NOT logged in -->
+        <li class="nav-item ms-3" *ngIf="!isLoggedIn">
+          <a class="nav-link d-flex align-items-center" routerLink="/login" title="Admin Login">
+            <i class="fa-solid fa-user-lock fa-lg"></i>
+          </a>
+        </li>
+
+        <!-- 🔹 Show only when logged in -->
+        <li class="nav-item ms-3" *ngIf="isLoggedIn">
+          <button class="nav-link btn btn-link text-light d-flex align-items-center" (click)="logout()" title="Logout"
+            style="text-decoration:none;"><i class="fa-solid fa-user-check"></i>
+            <i class="fas fa-sign-out-alt fa-sm"  style="font-size: 0.7rem; vertical-align: bottom;"></i>
           </button>
         </li>
       </ul>
@@ -43,29 +64,25 @@
 <!-- Footer -->
 <footer class="footer-section text-center" data-aos="fade-up">
   <div class="container">
-    <!-- Tagline -->
     <h4 class="footer-heading mb-3">Let's Connect 🌐</h4>
     <p class="footer-tagline mb-4">
       I’m always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
     </p>
 
-    <!-- Social Icons -->
     <div class="footer-social mb-4">
       <a href="https://facebook.com/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
       <a href="https://instagram.com/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
       <a href="https://twitter.com/" target="_blank" title="X / Twitter"><i class="fab fa-x-twitter"></i></a>
-      <a href="https://github.com/naveenlingala11" target="_blank" title="GitHub"><i class="fab fa-github"></i></a> <!-- ✅ Added GitHub -->
+      <a href="https://github.com/naveenlingala11" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
       <a href="mailto:naveen84815@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
       <a href="tel:+917032084815" title="Phone"><i class="fas fa-phone"></i></a>
     </div>
 
-    <!-- Divider -->
     <div class="footer-divider"></div>
 
-    <!-- Footer bottom -->
     <div class="footer-bottom mt-3">
       <h5 class="footer-name">LINGALA NAVEEN KUMAR</h5>
-      <p class="small text-white mb-0">&copy; 2025 • Crafted with ❤️ in India</p>
+      <p class="small text-white mb-0">&copy; {{ currentYear }} • Crafted with ❤️ in India</p>
     </div>
   </div>
 </footer>

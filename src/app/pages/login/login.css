@@ -1,0 +1,9 @@
+.section-wrapper {
+  background: #f8f9fa;
+  min-height: 100vh;
+}
+
+.card {
+  border-radius: 12px;
+  background: white;
+}

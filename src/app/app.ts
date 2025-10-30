@@ -1,68 +1,76 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, OnInit } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { Component, HostListener, OnInit, AfterViewInit } from '@angular/core';
+import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import * as AOS from 'aos';
+import { ThemeService } from './services/theme.service';
+import { AuthService } from './services/auth.service';
 
+declare var bootstrap: any; // ✅ for Bootstrap collapse control
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterLink, CommonModule],
+  standalone: true,
+  imports: [CommonModule, RouterOutlet, RouterLink],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrls: ['./app.css']
 })
-export class App implements OnInit {
+export class App implements OnInit, AfterViewInit {
   title = 'naveen-portfolio';
   isDarkMode = false;
   scrollProgress = 0;
+  currentYear = new Date().getFullYear();
+  isLoggedIn = false; // ✅ track login state
+
+  constructor(private themeService: ThemeService, private authService: AuthService, private router: Router) {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        AOS.refresh();
+      }
+    });
+  }
 
   ngOnInit() {
-    AOS.init({
-      duration: 1000,   // Animation duration in ms
-      easing: 'ease-in-out',
-      once: true,       // Animation happens only once
-      mirror: false     // Disable animation on scroll-up
-    });
+    // AOS
+    AOS.init({ duration: 1000, easing: 'ease-in-out', once: true, mirror: false, offset: 100, });
 
-    // load theme preference
-    const saved = localStorage.getItem('dark-theme');
-    this.isDarkMode = saved === 'true';
-    this.applyTheme();
-    this.updateProgress(); // in case initial scroll not zero
+    // load theme preference (ThemeService already applied initial value, keep local copy)
+    this.isDarkMode = this.themeService.isDark();
+
+    // initial scroll progress
+    this.updateProgress();
+    // ✅ reactively watch login state
+    this.authService.loginState$().subscribe(state => this.isLoggedIn = state);
+    // Also set initial value
+    // ✅ Update navbar instantly when login state changes
+    this.authService.loginState$().subscribe((state) => {
+      this.isLoggedIn = state;
+    });
+    // ✅ Also check once at load
+    this.isLoggedIn = this.authService.isLoggedIn();
   }
 
   toggleTheme() {
-    this.isDarkMode = !this.isDarkMode;
-    localStorage.setItem('dark-theme', this.isDarkMode.toString());
-    this.applyTheme();
+    this.themeService.toggleTheme();
+    // sync local state
+    this.isDarkMode = this.themeService.isDark();
   }
 
-  applyTheme() {
-    if (this.isDarkMode) {
-      document.body.classList.add('dark-theme');
-    } else {
-      document.body.classList.remove('dark-theme');
+  // Close navbar menu after clicking link on mobile
+  closeMenu(navMenu: HTMLElement): void {
+    const bsCollapse = bootstrap.Collapse.getInstance(navMenu);
+    if (bsCollapse) {
+      bsCollapse.hide();
     }
   }
+
   @HostListener('window:scroll', [])
   onWindowScroll() {
-    const scrollTop = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    this.scrollProgress = (scrollTop / docHeight) * 100;
-  }
-
-  ngAfterViewInit(): void {
-    // Close mobile navbar after link click
-    const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
-    const navbarCollapse = document.getElementById('navMenu');
-    const bsCollapse = new (window as any).bootstrap.Collapse(navbarCollapse!, { toggle: false });
-
-    navLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        if (window.innerWidth < 992) { // only on mobile
-          bsCollapse.hide();
-        }
-      });
-    });
+    this.updateProgress();
+    // small navbar shadow toggle if needed
+    const nav = document.querySelector('.custom-navbar');
+    if (nav) {
+      if (window.scrollY > 20) nav.classList.add('scrolled'); else nav.classList.remove('scrolled');
+    }
   }
 
   updateProgress() {
@@ -72,4 +80,24 @@ export class App implements OnInit {
     const scrolled = height > 0 ? (scrollTop / height) * 100 : 0;
     this.scrollProgress = Math.min(Math.max(scrolled, 0), 100);
   }
+
+  ngAfterViewInit(): void {
+    // Close mobile navbar after link click (bootstrap dependent)
+    const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+    const navbarCollapse = document.getElementById('navMenu');
+    if (navbarCollapse && (window as any).bootstrap) {
+      const bsCollapse = new (window as any).bootstrap.Collapse(navbarCollapse, { toggle: false });
+      navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          if (window.innerWidth < 992) { bsCollapse.hide(); }
+        });
+      });
+    }
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/']); // 👈 Redirect to Home after logout
+  }
+
 }

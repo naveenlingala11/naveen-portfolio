@@ -4,24 +4,46 @@
     A collection of modern, scalable web apps built with Java, Spring Boot, and Angular.
   </p>
 
-  <div class="projects-container">
-    <div
-      class="project-card fade-up"
-      *ngFor="let project of projects; let i = index"
-      [style.animationDelay]="i * 0.2 + 's'"
-    >
+  <!-- Loading state -->
+  <div *ngIf="loading" class="loading">Loading projects...</div>
+
+  <!-- Error state -->
+  <div *ngIf="error && !loading" class="error">
+    Unable to load projects. Please try again later.
+  </div>
+
+  <!-- Projects -->
+  <div class="projects-container" *ngIf="!loading && !error">
+    <div class="project-card fade-up" *ngFor="let project of projects; let i = index"
+      [style.animationDelay]="i * 0.2 + 's'">
       <div class="project-img-container">
-        <img [src]="project.image" alt="{{ project.name }}" class="project-img" />
+        <img [src]="project.imageUrl" [alt]="project.title" class="project-img" />
         <div class="overlay">
-          <h3>{{ project.name }}</h3>
-          <p>{{ project.shortDescription }}</p>
-          <a [href]="project.link" target="_blank" class="view-btn">🔗 View Project</a>
+          <h3>{{ project.title }}</h3>
+          <p>{{ project.description }}</p>
+          <div class="overlay-buttons">
+            <a [href]="project.githubUrl" target="_blank" class="view-btn github-btn">
+              <i class="fa-brands fa-github"></i> GitHub
+            </a>
+            <a *ngIf="project.demoUrl" [href]="project.demoUrl" target="_blank" class="view-btn demo-btn">
+              <i class="fa-solid fa-play"></i> Demo
+            </a>
+          </div>
         </div>
       </div>
+
       <div class="project-details">
-        <h4>{{ project.name }}</h4>
+        <h4>{{ project.title }}</h4>
         <p>{{ project.description }}</p>
+        <div class="tech-stack">
+          <span class="tech-badge" *ngFor="let tech of project.techStack">{{ tech }}</span>
+        </div>
       </div>
+      <!-- Optional Delete Button -->
+      <button *ngIf="authService.isAdmin()" (click)="deleteProject(project.id)" class="btn btn-danger btn-sm">
+        🗑️ Delete
+      </button>
     </div>
   </div>
+
 </section>

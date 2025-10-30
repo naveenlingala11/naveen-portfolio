@@ -1,0 +1,5 @@
+.footer-section { background: var(--footer-gradient); color: #fff; padding: 40px 20px; }
+.footer-heading { font-weight: 600; color: #fff; }
+.footer-social a { color: #fff; margin: 0 8px; font-size: 1.1rem; }
+.footer-divider { width: 80%; height: 2px; margin: 20px auto; background: rgba(255,255,255,0.08); border-radius: 50px; }
+.footer-name { color: var(--accent-color); font-weight: 600; }
