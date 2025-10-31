@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiBaseUrl: 'https://naveen-portfolio-backend.koyeb.app'
+  apiBaseUrl: 'https://cultural-clarissa-naveenlingala-0682ab37.koyeb.app'
 };
