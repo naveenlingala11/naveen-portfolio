@@ -19,3 +19,24 @@ frontend:
     - source: '/<*>'
       target: '/index.html'
       status: 200
+      customHeaders:
+    - pattern: '**/*.woff2'
+      headers:
+        - key: "Content-Type"
+          value: "font/woff2"
+    - pattern: '**/*.woff'
+      headers:
+        - key: "Content-Type"
+          value: "font/woff"
+    - pattern: '**/*.ttf'
+      headers:
+        - key: "Content-Type"
+          value: "font/ttf"
+    - pattern: '**/*.eot'
+      headers:
+        - key: "Content-Type"
+          value: "application/vnd.ms-fontobject"
+    - pattern: '**/*.svg'
+      headers:
+        - key: "Content-Type"
+          value: "image/svg+xml"

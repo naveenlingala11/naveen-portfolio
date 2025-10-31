@@ -142,26 +142,27 @@ export class Contact implements OnInit {
 
   /** 🔁 Load All Reviews */
   loadReviews() {
-    this.http.get<any>('http://localhost:8080/api/reviews').subscribe({
+    this.reviewService.getReviews().subscribe({
       next: (data) => {
         if (Array.isArray(data)) {
-          this.reviews = data.sort((a, b) =>
-            new Date(b.createdAt || '').getTime() - new Date(a.createdAt || '').getTime()
+          this.reviews = data.sort(
+            (a, b) =>
+              new Date(b.createdAt || '').getTime() -
+              new Date(a.createdAt || '').getTime()
           );
         } else {
           console.warn('Expected array but got:', data);
-          this.reviews = []; // fallback
+          this.reviews = [];
         }
       },
       error: err => console.error('Error loading reviews:', err)
     });
   }
 
-
   /** 🆕 Load Latest Review */
   loadLatestReview() {
-    this.http.get<Review>('http://localhost:8080/api/reviews/latest').subscribe({
-      next: (review) => this.latestReview = review,
+    this.reviewService.getLatestReview().subscribe({
+      next: (review) => (this.latestReview = review),
       error: err => console.error('Error fetching latest review:', err)
     });
   }
