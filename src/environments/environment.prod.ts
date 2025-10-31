@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiBaseUrl: 'https://naveen-portfolio-backend.onrender.com'
+  apiBaseUrl: 'http://naveenlingala.eu-north-1.elasticbeanstalk.com'
 };
