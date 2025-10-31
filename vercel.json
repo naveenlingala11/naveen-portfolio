@@ -1,6 +1,14 @@
 {
   "version": 2,
-  "buildCommand": "npm run build -- --configuration production",
-  "outputDirectory": "dist/naveen-portfolio/browser",
-  "framework": "angular"
+  "builds": [
+    {
+      "src": "angular.json",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "dist/naveen-portfolio/browser" }
+    }
+  ],
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/.*", "dest": "/index.html" }
+  ]
 }
