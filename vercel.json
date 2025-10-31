@@ -1,11 +1,6 @@
 {
   "version": 2,
   "buildCommand": "npm run build -- --configuration production",
-  "outputDirectory": "dist/naveen-portfolio",
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
-  ]
+  "outputDirectory": "dist/naveen-portfolio/browser",
+  "framework": "angular"
 }
