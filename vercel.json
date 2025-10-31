@@ -1,11 +1,7 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "dist/naveen-portfolio/**",
-      "use": "@vercel/static"
-    }
-  ],
+  "buildCommand": "npm run build -- --configuration production",
+  "outputDirectory": "dist/naveen-portfolio",
   "routes": [
     {
       "src": "/(.*)",
