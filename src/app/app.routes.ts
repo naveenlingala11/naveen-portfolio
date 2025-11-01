@@ -14,6 +14,7 @@ import { BlogEditorComponent } from './blog/blog-editor/blog-editor';
 
 
 export const routes: Routes = [
+  { path: 'home', component: Home},
   { path: 'about', component: About },
   { path: 'experience', component: Experience },
   { path: 'services', component: Services },
