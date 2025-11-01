@@ -1,0 +1,75 @@
+<div class="blog-editor container py-5">
+  <h2 class="text-center mb-4">
+    {{ isEditMode ? '✏️ Edit Blog' : '🆕 Create Blog' }}
+  </h2>
+
+  <div *ngIf="errorMessage" class="alert alert-danger text-center">{{ errorMessage }}</div>
+
+  <form (ngSubmit)="saveBlog()" class="blog-form">
+    <div class="mb-3">
+      <label class="form-label fw-semibold">Title</label>
+      <input [(ngModel)]="blog.title" name="title" required class="form-control" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label fw-semibold">Short Description</label>
+      <textarea [(ngModel)]="blog.shortDescription" name="shortDescription" rows="2" class="form-control"></textarea>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label class="form-label fw-semibold">Category</label>
+        <input [(ngModel)]="blog.category" name="category" class="form-control" />
+      </div>
+      <div class="col-md-6 mb-3">
+        <label class="form-label fw-semibold">Author</label>
+        <input [(ngModel)]="blog.authorName" name="authorName" class="form-control" />
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label fw-semibold">Tags</label>
+      <div class="tag-input d-flex align-items-center flex-wrap">
+        <input #tagInput type="text" placeholder="Add tag..." class="form-control flex-grow-1 me-2" />
+        <button type="button" class="btn btn-outline-secondary" (click)="addTag(tagInput)">Add</button>
+      </div>
+      <div class="tag-list mt-2">
+        <span class="tag" *ngFor="let tag of blog.tags" (click)="removeTag(tag)">#{{ tag }} ✖</span>
+      </div>
+    </div>
+
+    <!-- 🖼️ Image Upload -->
+    <div class="mb-4">
+      <label class="form-label fw-semibold">Upload Image</label>
+      <div class="upload-box">
+        <input type="file" (change)="onFileSelected($event)" accept="image/*" />
+
+        <div class="upload-status" *ngIf="isUploading">
+          <div class="spinner-border text-warning" role="status"></div>
+          <p>Uploading...</p>
+        </div>
+
+        <div class="upload-status success" *ngIf="uploadSuccess && !isUploading">
+          <i class="bi bi-check-circle-fill text-success fs-4"></i>
+          <p>Uploaded!</p>
+        </div>
+
+        <img *ngIf="imagePreview" [src]="imagePreview" class="preview mt-3 shadow-sm" />
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label fw-semibold">Content</label>
+      <textarea [(ngModel)]="blog.content" name="content" rows="8" class="form-control"></textarea>
+    </div>
+
+    <div class="form-check form-switch mb-4">
+      <input class="form-check-input" type="checkbox" [(ngModel)]="blog.featured" name="featured" />
+      <label class="form-check-label">Mark as Featured ⭐</label>
+    </div>
+
+    <button type="submit" class="btn btn-warning w-100 py-2 fw-semibold">
+      {{ isEditMode ? 'Update Blog' : 'Publish Blog' }}
+    </button>
+  </form>
+</div>

@@ -8,16 +8,23 @@ import { Skills } from './pages/skills/skills';
 import { Projects } from './pages/projects/projects';
 import { ReviewsComponent } from './pages/reviews/reviews';
 import { LoginComponent } from './pages/login/login';
+import { BlogListComponent } from './blog/blog-list/blog-list';
+import { BlogDetailComponent } from './blog/blog-detail/blog-detail';
+import { BlogEditorComponent } from './blog/blog-editor/blog-editor';
+
 
 export const routes: Routes = [
-  { path: '', component: Home },
   { path: 'about', component: About },
   { path: 'experience', component: Experience },
   { path: 'services', component: Services },
   { path: 'skills', component: Skills },
   { path: 'contact', component: Contact },
-  { path: 'projects', component: Projects},
-  { path: 'reviews', component: ReviewsComponent},
+  { path: 'projects', component: Projects },
+  { path: 'reviews', component: ReviewsComponent },
   { path: 'login', component: LoginComponent },
-
+  { path: '', redirectTo: 'blogs', pathMatch: 'full' },
+  { path: 'blogs', component: BlogListComponent },
+  { path: 'blogs/new', component: BlogEditorComponent },
+  { path: 'blogs/edit/:id', component: BlogEditorComponent },
+  { path: 'blogs/:id', component: BlogDetailComponent },
 ];

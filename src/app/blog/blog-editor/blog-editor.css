@@ -1,0 +1,137 @@
+.editor {
+  max-width: 750px;
+  margin: 0 auto;
+}
+
+.card {
+  border: none;
+  border-radius: 12px;
+  background: #fff;
+}
+
+h2 {
+  font-weight: 600;
+  color: #333;
+}
+
+.form-control {
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  transition: all 0.2s ease;
+  background-color: #fff;
+  color: #333;
+}
+
+.form-control:focus {
+  border-color: #ffc107;
+  box-shadow: 0 0 4px rgba(255, 193, 7, 0.4);
+}
+
+label {
+  font-weight: 500;
+  color: #555;
+}
+
+.btn-warning {
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-warning:hover {
+  background-color: #ffb400;
+  transform: translateY(-1px);
+}
+
+.tag-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  background: #ffc107;
+  color: #000;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.tag:hover {
+  background: #ffda44;
+  transform: scale(1.05);
+}
+
+.form-check-label {
+  color: #444;
+}
+
+.text-success {
+  color: #28a745 !important;
+}
+
+@media (max-width: 576px) {
+  .card {
+    padding: 1.2rem;
+  }
+}
+
+.blog-editor {
+  max-width: 800px;
+}
+.form-control {
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  transition: border 0.2s ease;
+}
+.form-control:focus {
+  border-color: #ffc107;
+  box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25);
+}
+.tag {
+  background: #ffc107;
+  color: #222;
+  border-radius: 20px;
+  padding: 4px 10px;
+  margin-right: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+.tag:hover {
+  background: #ffcd39;
+}
+.upload-box {
+  border: 2px dashed #ccc;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  background: #fafafa;
+  position: relative;
+}
+.upload-box input[type='file'] {
+  display: block;
+  margin: 10px auto;
+}
+.upload-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: #777;
+}
+.upload-status.success {
+  color: #28a745;
+}
+.preview {
+  width: 100%;
+  max-height: 250px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.btn-warning {
+  font-size: 1rem;
+  font-weight: 600;
+}
