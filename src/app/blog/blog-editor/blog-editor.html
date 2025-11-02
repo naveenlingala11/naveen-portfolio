@@ -68,8 +68,10 @@
       <label class="form-check-label">Mark as Featured ⭐</label>
     </div>
 
-    <button type="submit" class="btn btn-warning w-100 py-2 fw-semibold">
-      {{ isEditMode ? 'Update Blog' : 'Publish Blog' }}
+    <button type="submit" class="btn btn-warning w-100 py-2 fw-semibold" [disabled]="isSaving">
+      <span *ngIf="!isSaving">{{ isEditMode ? 'Update Blog' : 'Publish Blog' }}</span>
+      <span *ngIf="isSaving"><i class="spinner-border spinner-border-sm"></i> Saving...</span>
     </button>
+
   </form>
 </div>

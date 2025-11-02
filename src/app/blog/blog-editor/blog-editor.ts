@@ -23,6 +23,8 @@ export class BlogEditorComponent implements OnInit {
     shortDescription: ''
   };
 
+  isSaving = false;
+
   isEditMode = false;
   isUploading = false;
   uploadSuccess = false;
@@ -33,7 +35,7 @@ export class BlogEditorComponent implements OnInit {
     private blogService: BlogService,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
@@ -79,25 +81,23 @@ export class BlogEditorComponent implements OnInit {
   }
 
   saveBlog(): void {
-    if (this.isEditMode && this.blog.id) {
-      this.blogService.update(this.blog.id, this.blog).subscribe({
-        next: () => {
-          alert('✅ Blog updated successfully!');
-          this.router.navigate(['blogs']);
-        },
-        error: () => alert('❌ Failed to update blog'),
-      });
-    } else {
-      this.blogService.create(this.blog).subscribe({
-        next: (saved: BlogPost) => {
-          alert('✅ Blog published successfully!');
-          this.router.navigate(['blogs']);
-        },
-        error: (err: any) => {
-          console.error('Failed to publish blog:', err);
-          alert('❌ Failed to publish blog');
-        }
-      });
-    }
+    this.isSaving = true;
+    const obs = this.isEditMode && this.blog.id
+      ? this.blogService.update(this.blog.id, this.blog)
+      : this.blogService.create(this.blog);
+
+    obs.subscribe({
+      next: (saved: BlogPost) => {
+        alert(`✅ Blog ${this.isEditMode ? 'updated' : 'published'} successfully!`);
+        this.isSaving = false;
+        this.router.navigate(['/blogs', saved.id || this.blog.id]);
+      },
+      error: (err) => {
+        console.error('Save failed', err);
+        this.isSaving = false;
+        alert('❌ Failed to save blog');
+      }
+    });
   }
+
 }
