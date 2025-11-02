@@ -18,7 +18,7 @@ export class BlogListComponent implements OnInit {
   errorMessage = '';
   categories: string[] = [];
 
-  constructor(private blogService: BlogService, private router: Router) {}
+  constructor(private blogService: BlogService, private router: Router) { }
 
   ngOnInit(): void {
     this.loadBlogs();
@@ -76,4 +76,8 @@ export class BlogListComponent implements OnInit {
       error: () => alert('Failed to delete blog'),
     });
   }
+  createNewBlog(): void {
+    this.router.navigate(['/blogs/new']);
+  }
+
 }

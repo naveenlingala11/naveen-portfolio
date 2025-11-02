@@ -57,11 +57,23 @@ export class App implements OnInit, AfterViewInit {
 
   // Close navbar menu after clicking link on mobile
   closeMenu(navMenu: HTMLElement): void {
-    const bsCollapse = bootstrap.Collapse.getInstance(navMenu);
-    if (bsCollapse) {
-      bsCollapse.hide();
+    try {
+      // Always reinitialize collapse if needed (Angular rerenders can break the reference)
+      let bsCollapse = (window as any).bootstrap.Collapse.getInstance(navMenu);
+
+      if (!bsCollapse) {
+        bsCollapse = new (window as any).bootstrap.Collapse(navMenu, { toggle: false });
+      }
+
+      // Close only on mobile
+      if (window.innerWidth < 992) {
+        bsCollapse.hide();
+      }
+    } catch (err) {
+      console.warn('Failed to close menu:', err);
     }
   }
+
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
@@ -82,18 +94,39 @@ export class App implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    // Close mobile navbar after link click (bootstrap dependent)
+    // ✅ Close mobile navbar after link click (Bootstrap dependent)
     const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
     const navbarCollapse = document.getElementById('navMenu');
+
     if (navbarCollapse && (window as any).bootstrap) {
-      const bsCollapse = new (window as any).bootstrap.Collapse(navbarCollapse, { toggle: false });
+      // Ensure Bootstrap Collapse instance exists
+      let bsCollapse = (window as any).bootstrap.Collapse.getInstance(navbarCollapse);
+      if (!bsCollapse) {
+        bsCollapse = new (window as any).bootstrap.Collapse(navbarCollapse, { toggle: false });
+      }
+
+      // Close navbar on link click (for mobile only)
       navLinks.forEach(link => {
         link.addEventListener('click', () => {
-          if (window.innerWidth < 992) { bsCollapse.hide(); }
+          if (window.innerWidth < 992) {
+            bsCollapse.hide();
+          }
         });
       });
     }
+
+    // ✅ Extra safety: close menu on every route change (mobile only)
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd && window.innerWidth < 992) {
+        const navMenuEl = document.getElementById('navMenu');
+        if (navMenuEl) {
+          const bsCollapse = (window as any).bootstrap.Collapse.getInstance(navMenuEl);
+          if (bsCollapse) bsCollapse.hide();
+        }
+      }
+    });
   }
+
 
   logout(): void {
     this.authService.logout();
