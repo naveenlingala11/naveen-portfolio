@@ -16,7 +16,7 @@ export class BlogDetailComponent implements OnInit {
   blog?: BlogPost;
   errorMessage = '';
 
-  constructor(private route: ActivatedRoute, private blogService: BlogService) {}
+  constructor(private route: ActivatedRoute, private blogService: BlogService) { }
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -54,11 +54,33 @@ export class BlogDetailComponent implements OnInit {
     });
   }
   deleteBlog(): void {
-  if (!this.blog?.id || !confirm('Are you sure you want to delete this blog?')) return;
-  this.blogService.delete(this.blog.id).subscribe({
-    next: () => window.history.back(),
-    error: () => alert('Failed to delete blog'),
-  });
-}
+    if (!this.blog?.id || !confirm('Are you sure you want to delete this blog?')) return;
+    this.blogService.delete(this.blog.id).subscribe({
+      next: () => window.history.back(),
+      error: () => alert('Failed to delete blog'),
+    });
+  }
+  // ✅ NEW — Share blog
+  shareBlog(): void {
+    if (!this.blog) return;
+
+    const shareUrl = window.location.href;
+    const shareText = `Check out this blog: "${this.blog.title}"`;
+
+    if (navigator.share) {
+      navigator.share({
+        title: this.blog.title,
+        text: shareText,
+        url: shareUrl,
+      }).catch(() => {
+        // Fallback if user cancels share
+        navigator.clipboard.writeText(shareUrl);
+        alert('Link copied to clipboard!');
+      });
+    } else {
+      navigator.clipboard.writeText(shareUrl);
+      alert('Link copied to clipboard!');
+    }
+  }
 
 }
