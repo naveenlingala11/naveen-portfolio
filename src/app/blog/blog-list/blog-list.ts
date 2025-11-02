@@ -63,7 +63,7 @@ export class BlogListComponent implements OnInit {
   viewBlog(blog: BlogPost): void {
     if (blog.id) {
       this.blogService.view(blog.id).subscribe();
-      this.router.navigate(['/blog', blog.id]);
+      this.router.navigate(['/blogs', blog.id]);
     }
   }
   deleteBlog(blog: BlogPost): void {

@@ -14,7 +14,8 @@ import { BlogListComponent } from './blog/blog-list/blog-list';
 
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'home', component: Home },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: Home },
   { path: 'about', component: About },
   { path: 'experience', component: Experience },
   { path: 'services', component: Services },
@@ -27,4 +28,6 @@ export const routes: Routes = [
   { path: 'blogs/new', component: BlogEditorComponent },
   { path: 'blogs/edit/:id', component: BlogEditorComponent },
   { path: 'blogs/:id', component: BlogDetailComponent },
+  { path: '**', redirectTo: 'home' } // optional: catch-all for bad routes
 ];
+
