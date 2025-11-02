@@ -4,6 +4,7 @@ import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router
 import * as AOS from 'aos';
 import { ThemeService } from './services/theme.service';
 import { AuthService } from './services/auth.service';
+import { NotificationService } from './services/notification.service';
 
 declare var bootstrap: any; // ✅ for Bootstrap collapse control
 
@@ -20,8 +21,10 @@ export class App implements OnInit, AfterViewInit {
   scrollProgress = 0;
   currentYear = new Date().getFullYear();
   isLoggedIn = false; // ✅ track login state
+  notifications: any[] = [];
+  unreadCount: number = 0;
 
-  constructor(private themeService: ThemeService, private authService: AuthService, private router: Router) {
+  constructor(private themeService: ThemeService, private authService: AuthService, private router: Router, private notificationService: NotificationService) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         AOS.refresh();
@@ -47,31 +50,76 @@ export class App implements OnInit, AfterViewInit {
     });
     // ✅ Also check once at load
     this.isLoggedIn = this.authService.isLoggedIn();
+
+    this.loadNotifications();
   }
 
+  loadNotifications(): void {
+    this.notificationService.getAll().subscribe({
+      next: (data) => {
+        this.notifications = data;
+        this.updateUnreadCount();
+      },
+      error: (err) => console.error('Error loading notifications', err),
+    });
+  }
+
+  clearNotifications(): void {
+    this.notificationService.clearAll().subscribe({
+      next: () => (this.notifications = []),
+    });
+  }
   toggleTheme() {
     this.themeService.toggleTheme();
     // sync local state
     this.isDarkMode = this.themeService.isDark();
   }
-
-  // Close navbar menu after clicking link on mobile
-  closeMenu(navMenu: HTMLElement): void {
-    try {
-      // Always reinitialize collapse if needed (Angular rerenders can break the reference)
-      let bsCollapse = (window as any).bootstrap.Collapse.getInstance(navMenu);
-
-      if (!bsCollapse) {
-        bsCollapse = new (window as any).bootstrap.Collapse(navMenu, { toggle: false });
-      }
-
-      // Close only on mobile
-      if (window.innerWidth < 992) {
-        bsCollapse.hide();
-      }
-    } catch (err) {
-      console.warn('Failed to close menu:', err);
+  markAsRead(notification: any): void {
+    if (!notification.read) {
+      this.notificationService.markAsRead(notification.id).subscribe({
+        next: () => {
+          notification.read = true;
+          this.updateUnreadCount();
+        },
+        error: (err) => console.error('Error marking as read', err),
+      });
     }
+  }
+
+  markAllAsRead(): void {
+    this.notificationService.markAllAsRead().subscribe({
+      next: () => {
+        this.notifications.forEach((n) => (n.read = true));
+        this.updateUnreadCount();
+      },
+      error: (err) => console.error('Error marking all as read', err),
+    });
+  }
+
+  markAllAsUnread(): void {
+    this.notificationService.markAllAsUnread().subscribe({
+      next: () => {
+        this.notifications.forEach((n) => (n.read = false));
+        this.updateUnreadCount();
+      },
+      error: (err) => console.error('Error marking all as unread', err),
+    });
+  }
+
+
+  deleteNotification(notification: any, event: MouseEvent): void {
+    event.stopPropagation();
+    this.notificationService.delete(notification.id).subscribe({
+      next: () => {
+        this.notifications = this.notifications.filter((n) => n.id !== notification.id);
+        this.updateUnreadCount();
+      },
+      error: (err) => console.error('Error deleting notification', err),
+    });
+  }
+
+  updateUnreadCount(): void {
+    this.unreadCount = this.notifications.filter((n) => !n.read).length;
   }
 
 

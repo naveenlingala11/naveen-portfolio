@@ -2,66 +2,163 @@
 <div class="scroll-progress" [style.width.%]="scrollProgress"></div>
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark custom-navbar shadow-sm fixed-top">
-  <div class="container">
-    <!-- Brand (Left) -->
+<nav class="navbar navbar-dark custom-navbar fixed-top">
+  <div class="container-fluid d-flex align-items-center justify-content-between">
+
+    <!-- Left: Brand -->
     <a class="navbar-brand fw-bold d-flex align-items-center" routerLink="/">
       <i class="fas fa-code me-2 fs-4 text-warning"></i>
-      <span class="brand-name">Naveen Kumar Lingala</span>
+      <span class="brand-name-full">Naveen Kumar Lingala</span>
+      <span class="brand-name-short d-none">Naveen L.</span>
     </a>
 
-    <!-- Toggler for Mobile -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu"
-              aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span>
-    </button>
+    <!-- Centered Blogs link -->
+    <ul class="navbar-nav blogs-center">
+      <li class="nav-item">
+        <a class="nav-link blogs-link d-flex align-items-center" routerLink="/blogs">
+          <i class="fas fa-blog me-1 text-info"></i> Blogs
+        </a>
+      </li>
+    </ul>
 
 
-    <!-- Navigation Links (Right) -->
-    <div class="collapse navbar-collapse justify-content-end" id="navMenu" #navMenu>
-      <ul class="navbar-nav align-items-center">
-        <li class="nav-item"><a class="nav-link d-flex align-items-center" routerLink="/"><i class="fas fa-home me-1"
-              (click)="closeMenu(navMenu)"></i> Home</a></li>
-                      <!-- 📝 Blogs -->
-        <li class="nav-item">
-          <a class="nav-link d-flex align-items-center" routerLink="/blogs" (click)="closeMenu(navMenu)">
-            <i class="fas fa-blog me-1 text-info"></i> Blogs
-          </a>
-        </li>
-        <li class="nav-item"><a class="nav-link d-flex align-items-center" routerLink="/about"><i
-              class="fas fa-user me-1" (click)="closeMenu(navMenu)"></i> About</a></li>
-        <li class="nav-item"><a class="nav-link d-flex align-items-center" routerLink="/experience"><i
-              class="fas fa-briefcase me-1" (click)="closeMenu(navMenu)"></i> Experience</a></li>
-        <li class="nav-item"><a class="nav-link d-flex align-items-center" routerLink="/projects"><i
-              class="fas fa-project-diagram me-1" (click)="closeMenu(navMenu)"></i> Projects</a></li>
-        <li class="nav-item"><a class="nav-link d-flex align-items-center" routerLink="/skills"><i
-              class="fas fa-lightbulb me-1" (click)="closeMenu(navMenu)"></i> Skills</a></li>
-        <li class="nav-item"><a class="nav-link d-flex align-items-center" routerLink="/contact"><i
-              class="fas fa-envelope me-1" (click)="closeMenu(navMenu)"></i> Contact</a></li>
+    <!-- Right: Theme + dropdown toggle -->
+    <div class="d-flex align-items-center gap-2">
 
-        <!-- Theme toggle (keeps your existing button position) -->
-        <li class="nav-item ms-3">
-          <button class="theme-toggle-btn" (click)="toggleTheme()">
-            <i class="fas" [ngClass]="isDarkMode ? 'fa-sun' : 'fa-moon'"></i>
-            <span>{{ isDarkMode ? '🌙Dark' :'🌞Light' }}</span>
-          </button>
-          <!-- 🔹 Show only when NOT logged in -->
-        <li class="nav-item ms-3" *ngIf="!isLoggedIn">
-          <a class="nav-link d-flex align-items-center" routerLink="/login" title="Admin Login">
-            <i class="fa-solid fa-user-lock fa-lg"></i>
-          </a>
-        </li>
+      <!-- 🔔 Notifications Dropdown -->
+      <div class="dropdown">
+        <button class="btn btn-outline-light btn-sm position-relative notif-btn" type="button" id="notifDropdown"
+          data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fa-solid fa-bell"></i>
 
-        <!-- 🔹 Show only when logged in -->
-        <li class="nav-item ms-3" *ngIf="isLoggedIn">
-          <button class="nav-link btn btn-link text-light d-flex align-items-center" (click)="logout()" title="Logout"
-            style="text-decoration:none;"><i class="fa-solid fa-user-check"></i>
-            <i class="fas fa-sign-out-alt fa-sm"  style="font-size: 0.7rem; vertical-align: bottom;"></i>
-          </button>
-        </li>
-      </ul>
+          <!-- 🔴 Show count only if there are UNREAD notifications -->
+          <span *ngIf="unreadCount > 0"
+            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            {{ unreadCount }}
+          </span>
+        </button>
+
+        <div class="dropdown-menu dropdown-menu-end notif-dropdown shadow-lg border-0" aria-labelledby="notifDropdown">
+          <div class="notif-header d-flex justify-content-between align-items-center px-3 py-2">
+            <h6 class="mb-0 fw-semibold text-light">Notifications</h6>
+            <button class="btn btn-sm btn-link text-secondary" (click)="clearNotifications()">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          </div>
+          <hr class="notif-divider m-0" />
+
+          <!-- Empty State -->
+          <div *ngIf="!notifications.length" class="p-4 text-center text-muted">
+            <i class="fa-regular fa-bell-slash fa-2x mb-2 d-block"></i>
+            <small>No notifications</small>
+          </div>
+
+          <!-- Notifications list -->
+          <div *ngIf="notifications.length" class="notif-list">
+            <div *ngFor="let n of notifications.slice().reverse()" class="notif-item d-flex align-items-start px-3 py-2"
+              [class.unread]="!n.read" [class.read]="n.read" (click)="markAsRead(n)">
+              <div class="notif-icon me-3">
+                <i class="fa-solid" [ngClass]="{
+              'fa-blog text-info': n.type === 'BLOG_CREATED',
+              'fa-comment text-success': n.type === 'COMMENT_ADDED',
+              'fa-heart text-danger': n.type === 'BLOG_LIKED',
+              'fa-trash text-warning': n.type === 'BLOG_DELETED',
+              'fa-bell text-secondary': !n.type
+            }"></i>
+              </div>
+              <div class="flex-grow-1">
+                <div class="notif-message">{{ n.message }}</div>
+                <div class="notif-time small text-muted">{{ n.timestamp | date: 'short' }}</div>
+              </div>
+              <button class="btn btn-sm btn-link text-danger notif-delete" title="Delete notification"
+                (click)="deleteNotification(n, $event)">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+          </div>
+
+          <hr class="notif-divider m-0" />
+
+          <!-- Footer -->
+          <div class="notif-footer d-flex justify-content-around px-2 py-2">
+            <button class="btn btn-sm btn-outline-success" (click)="markAllAsRead()">Mark All Read</button>
+            <button class="btn btn-sm btn-outline-secondary" (click)="markAllAsUnread()">Unread</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dropdown (right corner) -->
+      <div class="dropdown">
+        <button class="btn btn-outline-light btn-sm dropdown-toggle" type="button" id="menuDropdown"
+          data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <ul class="dropdown-menu dropdown-menu-end custom-dropdown" aria-labelledby="menuDropdown">
+          <li>
+            <a class="dropdown-item d-flex align-items-center" routerLink="/">
+              <i class="fas fa-home me-2 icon-home"></i> Home
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item d-flex align-items-center" routerLink="/about">
+              <i class="fas fa-user me-2 icon-about"></i> About
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item d-flex align-items-center" routerLink="/experience">
+              <i class="fas fa-briefcase me-2 icon-exp"></i> Experience
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item d-flex align-items-center" routerLink="/projects">
+              <i class="fas fa-project-diagram me-2 icon-projects"></i> Projects
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item d-flex align-items-center" routerLink="/skills">
+              <i class="fas fa-lightbulb me-2 icon-skills"></i> Skills
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item d-flex align-items-center" routerLink="/contact">
+              <i class="fas fa-envelope me-2 icon-contact"></i> Contact
+            </a>
+          </li>
+
+          <li>
+            <hr class="dropdown-divider" />
+          </li>
+
+          <!-- 🌙 Theme toggle (moved inside dropdown) -->
+          <li>
+            <button class="dropdown-item d-flex align-items-center" (click)="toggleTheme()">
+              <i class="fas me-2" [ngClass]="isDarkMode ? 'fa-sun' : 'fa-moon'"></i>
+              {{ isDarkMode ? 'Light Mode' : 'Dark Mode' }}
+            </button>
+          </li>
+
+          <li>
+            <hr class="dropdown-divider" />
+          </li>
+
+          <!-- Login / Logout -->
+          <li *ngIf="!isLoggedIn">
+            <a class="dropdown-item d-flex align-items-center" routerLink="/login">
+              <i class="fa-solid fa-user-lock me-2"></i> Admin Login
+            </a>
+          </li>
+          <li *ngIf="isLoggedIn">
+            <button class="dropdown-item d-flex align-items-center" (click)="logout()">
+              <i class="fa-solid fa-sign-out-alt me-2"></i> Logout
+            </button>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </nav>
+
 
 <!-- Dynamic content -->
 <main class="main-content">
@@ -77,8 +174,10 @@
     </p>
 
     <div class="footer-social mb-4">
-      <a href="https://facebook.com/lovelynaveen2211" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-      <a href="https://www.instagram.com/lingala_naveen_" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://facebook.com/lovelynaveen2211" target="_blank" title="Facebook"><i
+          class="fab fa-facebook-f"></i></a>
+      <a href="https://www.instagram.com/lingala_naveen_" target="_blank" title="Instagram"><i
+          class="fab fa-instagram"></i></a>
       <a href="https://twitter.com/" target="_blank" title="X / Twitter"><i class="fab fa-x-twitter"></i></a>
       <a href="https://github.com/naveenlingala11" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
       <a href="mailto:naveen84815@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>

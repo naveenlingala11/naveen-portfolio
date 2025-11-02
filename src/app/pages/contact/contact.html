@@ -1,77 +1,207 @@
 <section class="section-wrapper" data-aos="fade-up">
-  <h2 class="text-center mb-5">Get in Touch</h2>
+  <h2 class="text-center mb-5 fw-bold">✨ Get in Touch</h2>
 
-  <div class="row g-4">
-    <!-- Contact Info -->
-    <div class="col-md-6" data-aos="fade-right" data-aos-delay="100">
-      <div class="card p-4 contact-card">
-        <h5>Email & Phone</h5>
-        <p>Email: <a href="mailto:naveen84815@gmail.com">naveen84815@gmail.com</a></p>
-        <p>Phone: <a href="tel:+917032084815">+91 7032084815</a></p>
+  <div class="row g-4 justify-content-center">
+    <!-- 💌 Contact Info -->
+    <div class="col-md-5" data-aos="fade-right" data-aos-delay="100">
+      <div class="card p-4 contact-card text-center h-100">
+        <h5 class="fw-semibold mb-3 text-info">
+          <i class="fas fa-envelope-open-text me-2"></i> Contact Details
+        </h5>
+
+        <p class="mb-2">
+          <i class="fas fa-user me-2 text-warning"></i>
+          <strong>Naveen Lingala</strong>
+        </p>
+
+        <p class="mb-2">
+          <i class="fas fa-map-marker-alt me-2 text-danger"></i>
+          #14, Srinivasa Illam, 20th Cross, Akshay Nagar, <br />
+          SBI Colony, T C Palya Road, Bangalore 560016
+        </p>
+
+        <div class="map-container my-3">
+          <iframe
+            class="map-iframe"
+            src="https://www.google.com/maps?q=14,+Srinivasa+Illam,+20th+Cross,+Akshay+Nagar,+SBI+Colony,+T+C+Palya+Road,+Bangalore+560016&output=embed"
+            width="100%"
+            height="200"
+            style="border:0; border-radius: 15px;"
+            allowfullscreen=""
+            loading="lazy"
+          ></iframe>
+        </div>
+
+        <p class="mb-2">
+          <i class="fas fa-paper-plane me-2 text-primary"></i>
+          <a
+            href="mailto:naveen84815@gmail.com"
+            class="text-decoration-none text-light"
+          >
+            naveen84815@gmail.com
+          </a>
+        </p>
+
+        <p>
+          <i class="fas fa-phone-alt me-2 text-success"></i>
+          <a
+            href="tel:+917032084815"
+            class="text-decoration-none text-light"
+          >
+            +91 7032084815
+          </a>
+        </p>
+
+        <div class="social-icons mt-3">
+          <a
+            href="https://github.com"
+            target="_blank"
+            class="me-3 text-light"
+          >
+            <i class="fab fa-github fa-lg"></i>
+          </a>
+          <a
+            href="https://linkedin.com"
+            target="_blank"
+            class="me-3 text-light"
+          >
+            <i class="fab fa-linkedin fa-lg"></i>
+          </a>
+          <a
+            href="https://twitter.com"
+            target="_blank"
+            class="text-light"
+          >
+            <i class="fab fa-twitter fa-lg"></i>
+          </a>
+        </div>
       </div>
     </div>
 
-    <!-- Contact Form -->
+    <!-- 📝 Contact Form -->
     <div class="col-md-6" data-aos="fade-left" data-aos-delay="200">
-      <div class="card p-4 contact-card">
-        <h5>Send a Message</h5>
+      <div class="card p-4 contact-card h-100">
+        <h5 class="fw-semibold mb-3 text-info">
+          <i class="fas fa-paper-plane me-2"></i> Send a Message
+        </h5>
         <form #contactForm="ngForm" (ngSubmit)="sendEmail(contactForm)">
           <div class="mb-3">
-            <input type="text" class="form-control" placeholder="Your Name" name="name" ngModel required />
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Your Name"
+              name="name"
+              ngModel
+              required
+            />
           </div>
           <div class="mb-3">
-            <input type="email" class="form-control" placeholder="Email Address" name="email" ngModel required />
+            <input
+              type="email"
+              class="form-control"
+              placeholder="Email Address"
+              name="email"
+              ngModel
+              required
+            />
           </div>
           <div class="mb-3">
-            <textarea class="form-control" rows="4" placeholder="Your Message" name="message" ngModel
-              required></textarea>
+            <textarea
+              class="form-control"
+              rows="4"
+              placeholder="Your Message"
+              name="message"
+              ngModel
+              required
+            ></textarea>
           </div>
-          <button type="submit" class="btn btn-primary w-100" [disabled]="sending">
+          <button
+            type="submit"
+            class="btn btn-primary w-100"
+            [disabled]="sending"
+          >
+            <i class="fas fa-paper-plane me-2"></i>
             {{ sending ? 'Sending...' : 'Send Message' }}
           </button>
-          <div class="mt-3 text-success text-center fw-semibold" *ngIf="successMessage">{{ successMessage }}</div>
-          <div class="mt-3 text-danger text-center fw-semibold" *ngIf="errorMessage">{{ errorMessage }}</div>
+          <div
+            class="mt-3 text-success text-center fw-semibold"
+            *ngIf="successMessage"
+          >
+            {{ successMessage }}
+          </div>
+          <div
+            class="mt-3 text-danger text-center fw-semibold"
+            *ngIf="errorMessage"
+          >
+            {{ errorMessage }}
+          </div>
         </form>
       </div>
     </div>
   </div>
 
-  <!-- ❤️ Like and Feedback Section -->
+  <!-- ❤️ Feedback Section (unchanged) -->
   <div class="feedback-section mt-5" data-aos="fade-up">
-    <h3 class="text-center mb-4 text-warning">Share Your Feedback 💬</h3>
+    <h3 class="text-center mb-4 fw-bold text-info">
+      💬 Share Your Feedback
+    </h3>
 
-    <!-- Like Section -->
     <div class="text-center mt-4">
-      <button class="btn btn-outline-primary" (click)="onLike()">👍 Like ({{ likes }})</button>
+      <button class="btn btn-outline-primary" (click)="onLike()">
+        <i class="fas fa-thumbs-up me-2"></i>
+        {{ hasLiked ? 'Liked' : 'Like' }} ({{ likes }})
+      </button>
     </div>
 
-    <!-- Feedback Form -->
-    <div class="card feedback-card p-4 mx-auto mt-4">
-      <h5 class="mb-3">Leave a Review</h5>
+    <div class="card feedback-card p-4 mx-auto mt-5">
+      <h5 class="mb-3 fw-semibold text-center text-info">
+        <i class="fas fa-comment-dots me-2"></i> Leave a Review
+      </h5>
       <form #reviewForm="ngForm" (ngSubmit)="submitReview(reviewForm)">
-        <input type="text" class="form-control mb-3" placeholder="Your Name" name="name" [(ngModel)]="review.name"
-          required />
-        <input type="email" class="form-control mb-3" placeholder="Your Email" name="email" [(ngModel)]="review.email"
-          required />
-        <textarea class="form-control mb-3" rows="3" placeholder="Your Feedback" name="message"
-          [(ngModel)]="review.message" required></textarea>
+        <input
+          type="text"
+          class="form-control mb-3"
+          placeholder="Your Name"
+          name="name"
+          [(ngModel)]="review.name"
+          required
+        />
+        <input
+          type="email"
+          class="form-control mb-3"
+          placeholder="Your Email"
+          name="email"
+          [(ngModel)]="review.email"
+          required
+        />
+        <textarea
+          class="form-control mb-3"
+          rows="3"
+          placeholder="Your Feedback"
+          name="message"
+          [(ngModel)]="review.message"
+          required
+        ></textarea>
 
-        <!-- ⭐ Star Rating -->
         <div class="rating mb-3 text-center">
-          <i *ngFor="let star of [1,2,3,4,5]" class="fas fa-star" [class.filled]="star <= review.rating"
-            (click)="setRating(star)">
-          </i>
+          <i
+            *ngFor="let star of [1, 2, 3, 4, 5]"
+            class="fas fa-star"
+            [class.filled]="star <= review.rating"
+            (click)="setRating(star)"
+          ></i>
         </div>
 
-        <!-- 🧠 reCAPTCHA -->
         <div class="d-flex justify-content-center my-3">
           <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div>
         </div>
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
-        <button type="submit" class="btn btn-success w-100">Submit Review</button>
+        <button type="submit" class="btn btn-success w-100">
+          <i class="fas fa-paper-plane me-2"></i> Submit Review
+        </button>
       </form>
-      <!-- ✅ Feedback Messages -->
+
       <div *ngIf="successMessage" class="alert alert-success text-center mt-3">
         {{ successMessage }}
       </div>
@@ -80,23 +210,36 @@
       </div>
     </div>
 
-    <!-- 🆕 Latest Review -->
-    <div class="latest-review mt-5 text-center" *ngIf="latestReview" data-aos="fade-up">
-      <div class="card shadow-sm border-0 p-4 mx-auto" style="max-width: 600px; border-radius: 20px;">
-        <h4 class="mb-3">🆕 Latest Review</h4>
+    <div
+      class="latest-review mt-5 text-center"
+      *ngIf="latestReview"
+      data-aos="fade-up"
+    >
+      <div
+        class="card shadow-sm border-0 p-4 mx-auto"
+        style="max-width: 600px; border-radius: 20px;"
+      >
+        <h4 class="mb-3 fw-semibold text-info">
+          <i class="fas fa-star me-2"></i> Latest Review
+        </h4>
 
-        <blockquote class="blockquote mb-3 fst-italic text-secondary">
+        <blockquote class="blockquote mb-3 fst-italic text-light">
           “{{ latestReview.message }}”
         </blockquote>
 
         <footer class="blockquote-footer fw-semibold">
-          {{ latestReview.name }} &nbsp;
-          <span class="text-warning">
-            <i *ngFor="let star of [1,2,3,4,5]" class="fa-star" [class.fas]="star <= latestReview.rating"
-              [class.far]="star > latestReview.rating">
-            </i>
+          {{ latestReview.name }}
+          <span class="text-warning ms-2">
+            <i
+              *ngFor="let star of [1, 2, 3, 4, 5]"
+              class="fa-star"
+              [class.fas]="star <= latestReview.rating"
+              [class.far]="star > latestReview.rating"
+            ></i>
           </span>
-          <div class="small text-muted mt-1">{{ latestReview.createdAt | date:'medium' }}</div>
+          <div class="small text-muted mt-1">
+            {{ latestReview.createdAt | date: 'medium' }}
+          </div>
         </footer>
 
         <button class="btn btn-outline-primary mt-4 px-4" (click)="viewAllReviews()">
