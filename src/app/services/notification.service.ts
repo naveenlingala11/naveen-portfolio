@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { Notification } from '../model/notification.model';
 
 @Injectable({ providedIn: 'root' })
 export class NotificationService {
@@ -13,8 +14,17 @@ export class NotificationService {
     return this.http.get<any[]>(this.baseUrl);
   }
 
+  // 🔔 Create a new notification (and send email)
   create(message: string, type: string): Observable<any> {
-    return this.http.post(this.baseUrl, { message, type });
+    const notification: Notification = { message, type };
+
+    // Send backend notification
+    const result = this.http.post<Notification>(this.baseUrl, notification);
+
+    // Also send an email alert
+    this.sendNotificationEmail(`📢 ${type}`, message);
+
+    return result;
   }
 
   clearAll(): Observable<void> {
@@ -22,18 +32,32 @@ export class NotificationService {
   }
 
   markAsRead(id: number): Observable<any> {
-  return this.http.patch(`${this.baseUrl}/${id}/read`, {});
-}
+    return this.http.patch(`${this.baseUrl}/${id}/read`, {});
+  }
 
 markAllAsRead(): Observable<any> {
-  return this.http.patch(`${this.baseUrl}/read-all`, {});
+  return this.http.put(`${this.baseUrl}/mark-read`, {});
 }
 
 markAllAsUnread(): Observable<any> {
-  return this.http.patch(`${this.baseUrl}/unread-all`, {});
+  return this.http.put(`${this.baseUrl}/mark-unread`, {});
 }
+
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
+  // 📬 Send email via Formspree
+  sendNotificationEmail(subject: string, message: string) {
+    const formspreeUrl = 'https://formspree.io/f/mzzkzvyz'; // ✅ your verified Formspree endpoint
+    const payload = {
+      name: 'Naveen Portfolio Notifier',
+      email: 'naveen84815@gmail.com',
+      message: `${subject}\n\n${message}`
+    };
 
+    this.http.post(formspreeUrl, payload, { responseType: 'text' }).subscribe({
+      next: () => console.log('✅ Email sent successfully'),
+      error: err => console.error('❌ Failed to send email:', err)
+    });
+  }
 }

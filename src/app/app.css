@@ -160,3 +160,45 @@ body > main { padding-top: 72px; }
 .notif-item.read:hover {
   background-color: #3a3a3a;
 }
+/* 🔔 Notification Dropdown Styling */
+.notif-dropdown {
+  min-width: 340px;
+  max-height: 420px;
+  overflow-y: auto;
+  background: rgba(20, 20, 30, 0.95);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.notif-item {
+  transition: background 0.2s;
+  border-left: 3px solid transparent;
+  padding: 10px;
+}
+
+.notif-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.notif-item.unread {
+  background: rgba(255, 255, 255, 0.1);
+  border-left: 3px solid #ffc107;
+}
+
+.delete-btn i {
+  transition: transform 0.2s, color 0.2s;
+}
+
+.delete-btn:hover i {
+  color: #ff4d4d;
+  transform: scale(1.2);
+}
+
+.btn-outline-light .fa-bell {
+  transition: transform 0.2s, color 0.2s;
+}
+
+.btn-outline-light:hover .fa-bell {
+  color: #ffc107;
+  transform: scale(1.15);
+}

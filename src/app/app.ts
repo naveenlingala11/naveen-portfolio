@@ -52,6 +52,8 @@ export class App implements OnInit, AfterViewInit {
     this.isLoggedIn = this.authService.isLoggedIn();
 
     this.loadNotifications();
+    this.notificationService.create('🚀 Portfolio update deployed!', 'DEPLOYMENT').subscribe();
+
   }
 
   loadNotifications(): void {
