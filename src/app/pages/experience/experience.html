@@ -1,27 +1,196 @@
 <section class="experience-section">
-  <h2 class="section-title">Professional Experience</h2>
 
-  <div class="experience-grid">
-    <div
-      class="experience-card"
-      *ngFor="let exp of experiences; let i = index"
-      [style.animationDelay]="i * 0.25 + 's'"
-    >
-      <div class="card-top">
-        <h3 class="role">{{ exp.role }}</h3>
-        <h4 class="company">{{ exp.company }}</h4>
-        <p class="location"><i class="fas fa-map-marker-alt"></i> {{ exp.location }}</p>
-        <p class="duration"><i class="fas fa-calendar-alt"></i> {{ exp.duration }}</p>
+  <!-- ===================== -->
+  <!-- EXPERIENCE SUMMARY -->
+  <!-- ===================== -->
+  <div class="experience-summary">
+    <div class="summary-card">
+      <i class="fas fa-briefcase"></i>
+      <h3>{{ experienceSummary.totalExperience }}</h3>
+      <p>Total Experience</p>
+    </div>
+
+    <div class="summary-card">
+      <i class="fab fa-java"></i>
+      <h3>{{ experienceSummary.specialization }}</h3>
+      <p>Primary Skill</p>
+    </div>
+
+    <div class="summary-card">
+      <i class="fas fa-cubes"></i>
+      <h3>{{ experienceSummary.architecture }}</h3>
+      <p>Architecture Style</p>
+    </div>
+
+    <div class="summary-card">
+      <i class="fab fa-azure"></i>
+      <h3>{{ experienceSummary.cloudDevOps }}</h3>
+      <p>CI / CD & Cloud</p>
+    </div>
+
+    <div class="summary-card">
+      <i class="fas fa-chart-line"></i>
+      <h3>{{ experienceSummary.performanceImpact }}</h3>
+      <p>Performance Improvement</p>
+    </div>
+  </div>
+
+  <!-- ===================== -->
+  <!-- KEY ACHIEVEMENTS -->
+  <!-- ===================== -->
+  <div class="achievements-section">
+    <h2 class="section-title">Key Achievements</h2>
+
+    <div class="achievements-grid">
+      <div class="achievement-card" *ngFor="let a of achievements">
+        <span class="icon">{{ a.icon }}</span>
+        <h4>{{ a.title }}</h4>
+        <p>{{ a.description }}</p>
+        <span class="metric" *ngIf="a.metric">{{ a.metric }}</span>
       </div>
+    </div>
+  </div>
 
-      <div class="card-bottom">
-        <ul class="responsibility-list">
-          <li *ngFor="let point of exp.responsibilities">{{ point }}</li>
-        </ul>
-        <div class="tags">
-          <span *ngFor="let tag of exp.tags" class="tag">{{ tag }}</span>
+  <!-- ===================== -->
+  <!-- TECHNOLOGY STACK -->
+  <!-- ===================== -->
+  <div class="tech-stack-section">
+    <h2 class="section-title">Technology Stack</h2>
+
+    <div class="tech-category" *ngFor="let cat of techStack">
+      <h3 class="tech-category-title">
+        <i class="fas fa-layer-group"></i> {{ cat.category }}
+      </h3>
+
+      <div class="tech-grid">
+        <div class="tech-card" *ngFor="let tech of cat.technologies">
+          <i class="fas fa-check-circle"></i>
+          <span>{{ tech }}</span>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- ===================== -->
+  <!-- FILTER BAR -->
+  <!-- ===================== -->
+  <div class="filter-bar">
+    <button class="filter-btn" [class.active]="activeFilter==='ALL'" (click)="setFilter('ALL')">
+      <i class="fas fa-layer-group"></i> All
+    </button>
+    <button class="filter-btn" [class.active]="activeFilter==='Target'" (click)="setFilter('Target')">
+      Target
+    </button>
+    <button class="filter-btn" [class.active]="activeFilter==='CGI'" (click)="setFilter('CGI')">
+      CGI
+    </button>
+    <button class="filter-btn" [class.active]="activeFilter==='Prodapt'" (click)="setFilter('Prodapt')">
+      Prodapt
+    </button>
+    <button class="filter-btn" [class.active]="activeFilter==='Marcellus'" (click)="setFilter('Marcellus')">
+      Marcellus
+    </button>
+  </div>
+
+  <!-- ===================== -->
+  <!-- PROFESSIONAL EXPERIENCE -->
+  <!-- ===================== -->
+  <h2 class="section-title">Professional Experience</h2>
+
+  <div class="experience-grid">
+    <div class="experience-card" *ngFor="let exp of filteredExperiences">
+
+      <!-- HEADER -->
+      <div class="card-top">
+        <h3 class="role">{{ exp.role }}</h3>
+        <h4 class="company">{{ exp.company }}</h4>
+
+        <div class="meta-info">
+          <span><i class="fas fa-map-marker-alt"></i> {{ exp.location }}</span>
+          <span><i class="fas fa-calendar-alt"></i> {{ exp.duration }}</span>
+        </div>
+      </div>
+
+      <!-- RESPONSIBILITIES -->
+      <div class="card-bottom">
+        <h4 class="sub-title">
+          <i class="fas fa-tasks"></i> Key Responsibilities
+        </h4>
+
+        <ul class="responsibility-list">
+          <li *ngFor="let r of exp.responsibilities; let i=index"
+              [hidden]="i > 3 && !exp.expanded">
+            {{ r }}
+          </li>
+        </ul>
+
+        <button class="toggle-btn" (click)="exp.expanded=!exp.expanded">
+          <i class="fas" [ngClass]="exp.expanded ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+          {{ exp.expanded ? 'Show Less' : 'Show More' }}
+        </button>
+
+        <!-- PROJECTS -->
+        <div class="projects-inside">
+          <h4 class="sub-title">
+            <i class="fas fa-diagram-project"></i> Projects
+          </h4>
+
+          <div class="project-box" *ngFor="let p of exp.projects">
+            <h5 class="project-name">{{ p.name }}</h5>
+
+            <p class="project-meta">
+              <strong>Client:</strong> {{ p.client }} |
+              <strong>Role:</strong> {{ p.role }} |
+              <strong>Duration:</strong> {{ p.duration }}
+            </p>
+
+            <p class="project-desc">{{ p.description }}</p>
+
+            <ul class="project-resp">
+              <li *ngFor="let pr of p.responsibilities">
+                {{ pr }}
+              </li>
+            </ul>
+
+            <div class="tags">
+              <span class="tag" *ngFor="let t of p.techStack">
+                <i class="fas fa-tag"></i> {{ t }}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- EXPERIENCE TAGS -->
+        <div class="tags">
+          <span class="tag" *ngFor="let tag of exp.tags">
+            <i class="fas fa-hashtag"></i> {{ tag }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== -->
+  <!-- FOOTER STATS -->
+  <!-- ===================== -->
+  <div class="footer-stats">
+    <div class="stat-card">
+      <i class="fas fa-project-diagram"></i>
+      <h3>{{ totalProjects }}</h3>
+      <p>Total Projects Delivered</p>
+    </div>
+
+    <div class="stat-card">
+      <i class="fas fa-code"></i>
+      <h3>{{ allTechnologies.length }}+</h3>
+      <p>Technologies Used</p>
+    </div>
+
+    <div class="stat-card">
+      <i class="fas fa-shield-alt"></i>
+      <h3>Production Ready</h3>
+      <p>Enterprise Applications</p>
+    </div>
+  </div>
+
 </section>

@@ -2,6 +2,46 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+/**
+ * ================================
+ * Interfaces (Scalable & Clean)
+ * ================================
+ */
+
+interface Experience {
+  company: string;
+  location: string;
+  role: string;
+  duration: string;
+  expanded: boolean;
+  responsibilities: string[];
+  tags: string[];
+  projects: Project[];
+}
+
+interface Project {
+  name: string;
+  client: string;
+  role: string;
+  duration: string;
+  description: string;
+  responsibilities: string[];
+  techStack: string[];
+  expanded: boolean;
+}
+
+interface Achievement {
+  icon: string;
+  title: string;
+  description: string;
+  metric?: string;
+}
+
+interface TechCategory {
+  category: string;
+  technologies: string[];
+}
+
 @Component({
   selector: 'app-experience',
   standalone: true,
@@ -9,83 +49,415 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './experience.html',
   styleUrls: ['./experience.css']
 })
-export class Experience {
-  experiences = [
+export class Experience_Component {
+
+  /**
+   * ================================
+   * Global Filters & UI State
+   * ================================
+   */
+  activeFilter: string = 'ALL';
+  searchText: string = '';
+
+  setFilter(filter: string): void {
+    this.activeFilter = filter;
+  }
+
+  /**
+   * ================================
+   * EXPERIENCE SUMMARY (Top Stats)
+   * ================================
+   */
+  experienceSummary = {
+    totalExperience: '4.9+ Years',
+    specialization: 'Java Backend Engineer',
+    architecture: 'Microservices',
+    cloudDevOps: 'Azure DevOps',
+    performanceImpact: '30–40% Optimization',
+    productionReadiness: true
+  };
+
+  /**
+   * ================================
+   * KEY ACHIEVEMENTS (Resume Metrics)
+   * ================================
+   */
+  achievements: Achievement[] = [
     {
-      company: 'Inventzo Systems',
-      location: 'Chennai, India',
-      role: 'Senior Software Engineer',
-      duration: 'Nov 2024 – Present',
-      responsibilities: [
-        'Designed and developed scalable banking microservices using Spring Boot & Java 8+.',
-        'Optimized SQL queries to improve transaction speed by 40%.',
-        'Implemented JWT-based authentication and Spring Security.',
-        'Configured CI/CD pipelines using Azure DevOps for automated deployments.',
-        'Integrated Swagger for seamless API documentation.',
-        'Enhanced system performance and reduced API response time by 30%.',
-        'Applied caching mechanisms for high-performance backend efficiency.',
-        'Handled production incidents and log analysis using Log4j.',
-        'Implemented microservice communication via Feign clients.',
-        'Participated in Agile sprints and collaborated with cross-functional teams.'
-      ],
-      tags: ['Spring Boot', 'Java', 'MySQL', 'Azure DevOps', 'Swagger']
+      icon: '🚀',
+      title: 'API Performance Optimization',
+      description: 'Reduced API response times using query optimization, caching, and efficient backend logic.',
+      metric: '30%'
     },
     {
-      company: 'CGI Information Systems',
+      icon: '⚡',
+      title: 'Database Optimization',
+      description: 'Improved transaction throughput through indexing, schema tuning, and optimized queries.',
+      metric: '40%'
+    },
+    {
+      icon: '🔁',
+      title: 'CI/CD Automation',
+      description: 'Automated build and deployment pipelines using Azure DevOps.',
+      metric: '40% Faster Releases'
+    },
+    {
+      icon: '🛠',
+      title: 'Production Stability',
+      description: 'Resolved critical production issues using log analysis and root cause analysis.',
+      metric: '99% Issue Resolution'
+    },
+    {
+      icon: '🔐',
+      title: 'Security Implementation',
+      description: 'Implemented JWT-based authentication and Spring Security for enterprise APIs.'
+    },
+    {
+      icon: '📦',
+      title: 'Microservices Delivery',
+      description: 'Designed and delivered scalable Spring Boot microservices in production environments.'
+    }
+  ];
+
+  /**
+   * ================================
+   * TECHNOLOGY STACK (Categorized)
+   * ================================
+   */
+  techStack: TechCategory[] = [
+    {
+      category: 'Programming & Frameworks',
+      technologies: [
+        'Java 8', 'Java 11', 'Java 17',
+        'Spring Boot', 'Spring MVC',
+        'Spring Security', 'Hibernate', 'JPA'
+      ]
+    },
+    {
+      category: 'Architecture',
+      technologies: [
+        'Microservices',
+        'RESTful APIs',
+        'Event-Driven Architecture',
+        'Feign Client'
+      ]
+    },
+    {
+      category: 'Databases & Caching',
+      technologies: [
+        'MySQL',
+        'PostgreSQL',
+        'Oracle',
+        'MongoDB',
+        'Redis'
+      ]
+    },
+    {
+      category: 'CI/CD & DevOps',
+      technologies: [
+        'Azure DevOps',
+        'Jenkins',
+        'Maven',
+        'Docker',
+        'Git',
+        'GitHub',
+        'SVN'
+      ]
+    },
+    {
+      category: 'Testing & Quality',
+      technologies: [
+        'JUnit',
+        'Mockito',
+        'Postman',
+        'Swagger / OpenAPI',
+        'SonarQube'
+      ]
+    },
+    {
+      category: 'Frontend & Tools',
+      technologies: [
+        'Angular (Basic)',
+        'HTML',
+        'CSS',
+        'IntelliJ IDEA',
+        'Eclipse',
+        'Spring Tool Suite',
+        'JIRA',
+        'Confluence'
+      ]
+    }
+  ];
+
+  /**
+   * ================================
+   * EXPERIENCE + PROJECTS (CORE DATA)
+   * ================================
+   */
+  experiences: Experience[] = [
+
+    /**
+     * -------------------------------
+     * TARGET CORPORATE SERVICES
+     * -------------------------------
+     */
+    {
+      company: 'Target Corporate Services Private Limited',
+      location: 'Bangalore, India',
+      role: 'Senior Software Engineer',
+      duration: 'Nov 2024 – Present',
+      expanded: false,
+      responsibilities: [
+        'Architected and developed high-performance backend microservices using Java 8/11 and Spring Boot for enterprise payroll and banking systems.',
+        'Designed and implemented RESTful APIs following microservices architecture, SOLID principles, and clean coding standards.',
+        'Reduced API response time by 30% by optimizing backend logic, SQL queries, and introducing Redis-based caching.',
+        'Enhanced transaction processing speed by 40% through database query tuning, indexing, and schema optimization.',
+        'Implemented secure authentication and authorization using Spring Security with JWT-based token management.',
+        'Developed inter-service communication using Feign clients for seamless microservice integration.',
+        'Automated CI/CD pipelines using Azure DevOps, significantly reducing deployment cycle time.',
+        'Integrated Swagger/OpenAPI for API documentation, testing, and client collaboration.',
+        'Handled production incidents, log analysis, and root cause analysis using Log4j.',
+        'Actively participated in Agile/Scrum ceremonies, sprint planning, code reviews, and retrospectives.'
+      ],
+      tags: [
+        'Java 8/11',
+        'Spring Boot',
+        'Microservices',
+        'MySQL',
+        'Redis',
+        'Azure DevOps',
+        'Swagger',
+        'Spring Security'
+      ],
+      projects: [
+        {
+          name: 'WinOM Microservices (Payroll)',
+          client: 'Windstream',
+          role: 'Senior Software Engineer',
+          duration: 'Nov 2024 – Present',
+          description: 'Enhancement and modernization of legacy payroll systems into scalable microservices.',
+          expanded: false,
+          responsibilities: [
+            'Designed RESTful APIs using Spring Boot.',
+            'Implemented business validations and workflow modules.',
+            'Optimized backend latency and performance.',
+            'Managed builds and dependencies using Maven.',
+            'Used Git for version control and collaborative development.'
+          ],
+          techStack: [
+            'Java',
+            'Spring Boot',
+            'Microservices',
+            'Hibernate',
+            'MySQL',
+            'Redis',
+            'Azure DevOps'
+          ]
+        }
+      ]
+    },
+
+    /**
+     * -------------------------------
+     * CGI
+     * -------------------------------
+     */
+    {
+      company: 'CGI Information Systems & Management Consultants Pvt. Ltd.',
       location: 'Bangalore, India',
       role: 'Software Engineer',
       duration: 'Jul 2024 – Nov 2024',
+      expanded: false,
       responsibilities: [
-        'Developed RESTful APIs and backend services using Spring Boot & Java.',
-        'Worked with PostgreSQL and MongoDB databases for scalable systems.',
-        'Implemented testing using JUnit and Mockito frameworks.',
-        'Integrated Swagger for API documentation.',
-        'Developed authentication and authorization modules.',
-        'Improved application performance via code optimization.',
-        'Collaborated with DevOps team to deploy on cloud infrastructure.',
-        'Participated in Agile Scrum ceremonies and sprint planning.',
-        'Resolved production issues by analyzing logs and metrics.',
-        'Ensured code quality with peer reviews and SonarQube checks.'
+        'Designed, developed, and deployed scalable RESTful APIs using Java and Spring Boot for enterprise banking applications.',
+        'Worked on TD Bank CMOD (Content Management on Demand) platform.',
+        'Implemented backend services using MongoDB for scalable data management.',
+        'Developed authentication and authorization mechanisms to secure APIs.',
+        'Performed unit and integration testing using JUnit and Mockito.',
+        'Reviewed peer code and merge requests, enforcing coding standards.',
+        'Prepared technical and design documentation during sprint planning.',
+        'Resolved production issues through log analysis and debugging.',
+        'Collaborated with QA, DevOps, and business teams in Agile Scrum environment.'
       ],
-      tags: ['Spring Boot', 'MongoDB', 'JUnit', 'Mockito', 'CI/CD']
+      tags: [
+        'Java',
+        'Spring Boot',
+        'REST APIs',
+        'MongoDB',
+        'JUnit',
+        'Mockito',
+        'Agile',
+        'JIRA'
+      ],
+      projects: [
+        {
+          name: 'CMOD – Content Management on Demand',
+          client: 'TD Bank',
+          role: 'Software Engineer – API Developer',
+          duration: 'Jul 2024 – Nov 2024',
+          description: 'Custom enhancement platform to manage configurable banking features.',
+          expanded: false,
+          responsibilities: [
+            'Designed and developed REST APIs using Spring Boot.',
+            'Implemented secure backend services for banking data.',
+            'Reviewed merge requests and ensured code quality.',
+            'Prepared technical documentation.',
+            'Used Git, JIRA, and TeamForge for project tracking.'
+          ],
+          techStack: [
+            'Java',
+            'Spring Boot',
+            'MongoDB',
+            'REST APIs'
+          ]
+        }
+      ]
     },
+
+    /**
+     * -------------------------------
+     * PRODAPT
+     * -------------------------------
+     */
     {
-      company: 'Prodapt Solutions',
+      company: 'Prodapt Solutions Pvt. Ltd.',
       location: 'Bangalore, India',
       role: 'Software Engineer',
       duration: 'Dec 2021 – Nov 2023',
+      expanded: false,
       responsibilities: [
-        'Developed telecom backend services using Spring Boot and REST APIs.',
-        'Optimized queries using JPA and Hibernate for high-volume telecom data.',
+        'Developed and maintained scalable backend microservices using Java, Spring Boot, Hibernate, and REST APIs.',
+        'Designed service and DAO layers following layered architecture and design patterns.',
+        'Implemented JPA and Hibernate ORM for efficient data persistence.',
+        'Improved backend performance using caching and asynchronous processing.',
         'Integrated Angular frontend with Spring Boot backend services.',
-        'Implemented Spring Security for API authentication.',
-        'Wrote unit and integration tests with JUnit & Mockito.',
-        'Automated deployments via CI/CD pipelines.',
-        'Improved backend efficiency using caching and async calls.',
+        'Performed unit testing using JUnit and Mockito.',
+        'Automated build and deployment processes using CI/CD pipelines.',
         'Documented API endpoints and versioning details.',
-        'Collaborated in Agile sprints and standup meetings.',
-        'Troubleshot production incidents with root cause analysis.'
+        'Participated in Agile ceremonies and sprint reviews.'
       ],
-      tags: ['Spring Boot', 'Angular', 'Hibernate', 'PostgreSQL', 'JPA']
+      tags: [
+        'Java',
+        'Spring Boot',
+        'Hibernate',
+        'JPA',
+        'PostgreSQL',
+        'Microservices',
+        'Angular',
+        'CI/CD'
+      ],
+      projects: [
+        {
+          name: 'Academy Sports + Outdoors (E-Commerce)',
+          client: 'SAPIENT',
+          role: 'Software Engineer – API Developer',
+          duration: 'Dec 2021 – Nov 2023',
+          description: 'High-scale e-commerce backend platform.',
+          expanded: false,
+          responsibilities: [
+            'Developed REST APIs using Spring Boot.',
+            'Implemented DAO and Service layers.',
+            'Performed unit testing using Mockito.',
+            'Optimized application performance.',
+            'Used Maven and Git.'
+          ],
+          techStack: [
+            'Java',
+            'Spring Boot',
+            'Hibernate',
+            'PostgreSQL',
+            'Microservices'
+          ]
+        }
+      ]
     },
+
+    /**
+     * -------------------------------
+     * MARCELLUS INFOTECH
+     * -------------------------------
+     */
     {
-      company: 'Marcellus Infotech',
+      company: 'Marcellus Infotech Pvt. Ltd.',
       location: 'Bangalore, India',
       role: 'System Engineer',
       duration: 'Oct 2020 – Dec 2021',
+      expanded: false,
       responsibilities: [
-        'Developed backend services and APIs using Spring Boot framework.',
-        'Built REST APIs for mobile and web integrations.',
-        'Implemented authentication and exception handling mechanisms.',
-        'Worked with MySQL databases and query optimization.',
-        'Performed unit testing with JUnit and Mockito.',
-        'Deployed microservices using CI/CD pipelines.',
-        'Configured application properties for multiple environments.',
-        'Participated in Agile team meetings and retrospectives.',
-        'Improved API performance through caching and load optimization.',
-        'Monitored application logs and production health.'
+        'Developed enterprise-grade Java web applications using Spring, Spring Boot, and Hibernate.',
+        'Worked on Employee–Client Management System.',
+        'Designed Controllers, Service, and DAO layers.',
+        'Wrote optimized HQL and SQL queries using MySQL.',
+        'Implemented authentication and exception handling.',
+        'Performed unit testing and debugging.',
+        'Configured applications for multiple environments.',
+        'Deployed applications on Apache Tomcat.',
+        'Monitored logs and resolved runtime issues.'
       ],
-      tags: ['Spring Boot', 'MySQL', 'Spring Security', 'JUnit', 'CI/CD']
+      tags: [
+        'Java',
+        'Spring Boot',
+        'Hibernate',
+        'MySQL',
+        'REST APIs',
+        'Tomcat',
+        'Maven'
+      ],
+      projects: [
+        {
+          name: 'Employee–Client Management System',
+          client: 'ACFEA Tour Consultants (US)',
+          role: 'System Engineer',
+          duration: 'Oct 2020 – Dec 2021',
+          description: 'Web-based HR and client management portal.',
+          expanded: false,
+          responsibilities: [
+            'Developed backend modules using Java and Spring.',
+            'Implemented Controllers, Services, and DAO layers.',
+            'Optimized HQL and SQL queries.',
+            'Deployed applications on Tomcat server.',
+            'Provided production support.'
+          ],
+          techStack: [
+            'Java',
+            'Spring',
+            'Hibernate',
+            'MySQL',
+            'Tomcat'
+          ]
+        }
+      ]
     }
   ];
+
+  /**
+   * ================================
+   * DERIVED HELPERS (Future UI Use)
+   * ================================
+   */
+
+  get totalProjects(): number {
+    return this.experiences.reduce(
+      (count, exp) => count + exp.projects.length,
+      0
+    );
+  }
+
+  get allTechnologies(): string[] {
+    const techSet = new Set<string>();
+    this.techStack.forEach(cat =>
+      cat.technologies.forEach(t => techSet.add(t))
+    );
+    return Array.from(techSet);
+  }
+
+  // 👇 ADD HERE
+  get filteredExperiences() {
+    if (this.activeFilter === 'ALL') {
+      return this.experiences;
+    }
+    return this.experiences.filter(exp =>
+      exp.company.toLowerCase().includes(this.activeFilter.toLowerCase())
+    );
+  }
 }
