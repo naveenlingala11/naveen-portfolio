@@ -1,126 +1,773 @@
-<!-- Cover Section -->
-<div class="hero-image-container">
-  <img src="Naveen Banner.png" alt="Hero Image" class="hero-image" loading="lazy" >
-</div>
+<!-- ========================================================= -->
+<!-- ===================== HERO BANNER ======================= -->
+<!-- ========================================================= -->
 
+<section class="hero-image-container">
+  <img src="Naveen Banner.png" alt="Naveen Kumar Lingala - Senior Software Engineer" class="hero-image"
+    loading="lazy" />
+</section>
 
-<section class="hero-section text-center" data-aos="fade-zoom-in">
-  <div class="container py-5">
-    <h1 data-aos="fade-up" data-aos-delay="100">Hi, I'm Naveen Kumar Lingala 👋</h1>
-    <p data-aos="fade-up" data-aos-delay="200" class="lead text-center">
-      Full Stack Developer | Java + Angular | Cloud Enthusiast
+<!-- ========================================================= -->
+<!-- ===================== HERO ============================= -->
+<!-- ========================================================= -->
+
+<section class="hero-premium">
+
+  <div class="container hero-grid">
+
+    <!-- LEFT -->
+    <div class="hero-content">
+
+      <span class="hero-badge">Senior Software Engineer • Backend</span>
+
+      <h1 class="hero-title">
+        Engineering reliable backend systems
+        for real-world scale.
+      </h1>
+
+      <p class="hero-description">
+        I’m <strong>Naveen Kumar Lingala</strong>, a backend-focused
+        <strong>Senior Software Engineer</strong> with
+        <strong>4.9 years of hands-on experience</strong>
+        building and maintaining
+        <strong>enterprise-grade microservices, REST APIs,
+          and distributed systems</strong>.
+      </p>
+
+      <p class="hero-description">
+        I specialize in designing systems that perform
+        under <strong>high traffic, strict SLAs, and production pressure</strong>,
+        with a strong focus on
+        <strong>scalability, performance, security, and long-term maintainability</strong>.
+      </p>
+
+      <div class="hero-actions">
+        <a routerLink="/projects" class="btn-solid">View Projects</a>
+        <a routerLink="/contact" class="btn-outline">Contact</a>
+      </div>
+
+    </div>
+
+    <!-- RIGHT -->
+    <div class="hero-stats">
+
+      <div class="stat-box">
+        <h3>4.9+</h3>
+        <p>Years Experience</p>
+      </div>
+
+      <div class="stat-box">
+        <h3>25+</h3>
+        <p>Microservices</p>
+      </div>
+
+      <div class="stat-box">
+        <h3>30%</h3>
+        <p>Latency Reduced</p>
+      </div>
+
+      <div class="stat-box">
+        <h3>99.9%</h3>
+        <p>Production Uptime</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+<!-- ========================================================= -->
+<!-- ======== ENGINEERING CAPABILITY ========================= -->
+<!-- ========================================================= -->
+
+<section class="capability-section">
+
+  <div class="container capability-grid">
+
+    <!-- ================= LEFT ================= -->
+    <div class="capability-card">
+
+      <span class="capability-tag">WHAT I BUILD</span>
+
+      <h3 class="capability-heading">
+        Backend systems trusted in production
+      </h3>
+
+      <ul class="capability-list">
+        <li>
+          Design and own <strong>Java & Spring Boot microservices</strong>
+          used in production-critical environments.
+        </li>
+        <li>
+          Define <strong>REST API contracts</strong>, data models,
+          and service boundaries for scalable systems.
+        </li>
+        <li>
+          Build services that remain <strong>predictable under load</strong>
+          and resilient to partial failures.
+        </li>
+        <li>
+          Work extensively with <strong>high-traffic and asynchronous workflows</strong>
+          backed by strict SLA requirements.
+        </li>
+        <li>
+          Ensure systems are <strong>easy to extend</strong> without introducing regressions.
+        </li>
+      </ul>
+
+    </div>
+
+    <!-- ================= RIGHT ================= -->
+    <div class="capability-card">
+
+      <span class="capability-tag">HOW I DELIVER</span>
+
+      <h3 class="capability-heading">
+        Reliability, performance, and long-term stability
+      </h3>
+
+      <ul class="capability-list">
+        <li>
+          Treat <strong>performance and reliability</strong> as first-class features,
+          not post-release fixes.
+        </li>
+        <li>
+          Profile APIs, optimize <strong>database queries</strong>,
+          and introduce caching where it provides real value.
+        </li>
+        <li>
+          Design <strong>async processing</strong> to handle peak traffic efficiently.
+        </li>
+        <li>
+          Debug production issues using <strong>logs, metrics, and traces</strong>
+          to identify root causes.
+        </li>
+        <li>
+          Improve overall code quality through
+          <strong>reviews, mentoring, and clean design practices</strong>.
+        </li>
+      </ul>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ========================================================= -->
+<!-- ===================== LIVE METRICS ====================== -->
+<!-- ========================================================= -->
+
+<section class="metrics container my-5">
+
+  <div class="metric-card" *ngFor="let m of metrics">
+    <h2>{{ m.current }}{{ m.suffix }}</h2>
+    <p>{{ m.label }}</p>
+  </div>
+
+</section>
+
+<!-- ========================================================= -->
+<!-- ===================== TECH STACK ======================== -->
+
+<section class="tech-stack" [class.dark]="isDarkMode">
+
+  <div class="container">
+
+    <div class="tech-header">
+      <h2>Technology Stack</h2>
+
+      <div class="tech-actions">
+        <div class="filters">
+          <button *ngFor="let c of categories" (click)="setCategory(c)" [class.active]="activeCategory === c">
+            {{ c }}
+          </button>
+        </div>
+
+        <button class="dark-toggle" (click)="toggleDarkMode()">
+          {{ isDarkMode ? '☀ Light' : '🌙 Dark' }}
+        </button>
+      </div>
+    </div>
+
+    <p class="lead text-center mb-5">
+      Enterprise technologies with proficiency level and real-world experience.
     </p>
-    <div class="mt-4" data-aos="zoom-in" data-aos-delay="300">
-      <a routerLink="/projects" class="btn btn-primary btn-lg">View My Projects</a>
+
+    <div class="tech-grid-icons">
+
+      <ng-container *ngFor="let tech of techStack; let i = index">
+
+        <div class="tech-item" *ngIf="activeCategory === 'All' || tech.category === activeCategory"
+          [class.show]="isVisible" [style.animationDelay.ms]="i * 80">
+
+          <img [src]="tech.icon" [alt]="tech.name">
+
+          <span class="tech-name">{{ tech.name }}</span>
+
+          <span class="tech-level" [class.advanced]="tech.level === 'Advanced'">
+            {{ tech.level }}
+          </span>
+
+          <span class="tech-exp">
+            {{ tech.years }} yrs
+          </span>
+
+        </div>
+
+      </ng-container>
+
     </div>
+
   </div>
 
-  <h5 class="text-muted title-sub">
-    Senior Software Engineer — Java • Spring Boot • Microservices
-  </h5>
-
-
-  <p class="lead mx-auto mb-4" style="max-width:900px">
-    I specialize in building <strong>robust, scalable, and maintainable backend solutions</strong>, integrating modern
-    frontend frameworks, and optimizing system performance.
-    Passionate about technology, I thrive on solving complex problems, mentoring team members, and delivering
-    high-impact projects.
-    My expertise spans <strong>Java 8+, Spring Boot, Microservices, REST APIs, Hibernate, SQL & NoSQL databases, and
-      CI/CD pipelines</strong>.
-  </p>
-
-
-  <div class="row g-4">
-    <div class="col-md-4" data-aos="fade-right" data-aos-delay="100">
-      <div class="card skill-card h-100 p-4">
-        <i class="fas fa-cogs skill-icon mb-2"></i>
-        <h5 class="card-title">Backend Engineering</h5>
-        <p class="card-text">
-          Expert in <strong>microservices, REST APIs, Spring Boot, Hibernate, JPA</strong>, and performance optimization
-          for high-traffic enterprise systems.
-          Experienced in <strong>design patterns, multithreading, and asynchronous processing</strong> to build scalable solutions.
-        </p>
-      </div>
-
-    </div>
-    <div class="col-md-4" data-aos="fade-right" data-aos-delay="100">
-      <div class="card skill-card h-100 p-4">
-        <i class="fas fa-cogs skill-icon mb-2"></i>
-        <h5 class="card-title">Database & Data Management</h5>
-        <p>Designing <strong>efficient database schemas</strong>, query optimization, indexing, and <strong>SQL & NoSQL integration</strong>.
-          Skilled in <strong>PostgreSQL, MySQL, MongoDB</strong>, and optimizing large-scale data pipelines for real-time processing.
-        </p>
-      </div>
-    </div>
-    <div class="col-md-4" data-aos="fade-right" data-aos-delay="100">
-      <div class="card skill-card h-100 p-4">
-        <i class="fas fa-cogs skill-icon mb-2"></i>
-        <h5 class="card-title">DevOps & CI/CD</h5>
-        <p>Automated pipelines with <strong>Azure DevOps, Jenkins, Docker, Kubernetes</strong>, and optimized release cycles.
-          Ensured <strong>error-free deployments, monitoring, and performance tuning</strong> for enterprise systems.
-        </p>
-      </div>
-    </div>
-  </div>
 </section>
 
-<!-- Professional Highlights -->
-<section class="section-wrapper" data-aos="fade-up" data-aos-delay="400">
-  <h2 class="text-center mb-4 text-danger">Professional Highlights</h2>
-  <p class="lead text-center mb-5">
-    <strong>Over 4.5 years</strong>, I have consistently delivered <strong>high-quality backend solutions</strong>, optimized system performance, and
-    improved deployment efficiency.
-    Key achievements include:
-  </p>
+<!-- ========================================================= -->
+<!-- ===================== HOW I THINK ======================= -->
+<!-- ========================================================= -->
 
-  <div class="row g-4" data-aos="zoom-in" data-aos-delay="450">
-    <div class="card highlight-card p-4">
-      <i class="fas fa-tachometer-alt highlight-icon mb-2"></i>
-      <h5 class="card-title">Performance Optimization</h5>
-      <p class="card-text">
-        Reduced API response times by 30% through efficient query optimization, caching strategies, and backend logic
-        enhancements.
-        Enabled enterprise systems to handle higher loads with improved reliability.
+<section class="thinking">
+
+  <div class="container">
+
+    <h2 class="text-center mb-4">How I Solve Engineering Problems</h2>
+
+    <p class="lead text-center mb-5">
+      My approach to engineering is systematic, pragmatic, and deeply aligned
+      with real-world production constraints. Every decision I make is guided by
+      scalability, reliability, and long-term maintainability.
+    </p>
+
+    <ol class="timeline">
+
+      <!-- STEP 1 -->
+      <li class="timeline-item">
+        <div class="step-header">
+          <h4>Requirement Analysis</h4>
+          <span class="step-tag">Foundation</span>
+        </div>
+
+        <p class="step-summary">
+          I begin by deeply understanding business goals, system constraints,
+          and user expectations before touching any code.
+        </p>
+
+        <div class="step-details">
+          <p>
+            I collaborate closely with product owners, business analysts, and
+            stakeholders to clarify functional and non-functional requirements.
+            This includes understanding SLA expectations, data sensitivity,
+            traffic patterns, and future scalability needs.
+          </p>
+          <p>
+            I proactively identify ambiguities, edge cases, and technical risks
+            early in the lifecycle to prevent costly rework during later stages.
+          </p>
+        </div>
+      </li>
+
+      <!-- STEP 2 -->
+      <li class="timeline-item">
+        <div class="step-header">
+          <h4>System Design</h4>
+          <span class="step-tag">Architecture</span>
+        </div>
+
+        <p class="step-summary">
+          I design scalable, fault-tolerant architectures aligned with
+          microservices and cloud-native principles.
+        </p>
+
+        <div class="step-details">
+          <p>
+            I break down the system into well-defined services with clear
+            responsibilities, ensuring loose coupling and high cohesion.
+            Data flow, API contracts, and inter-service communication
+            are carefully planned.
+          </p>
+          <p>
+            I evaluate trade-offs around synchronous vs asynchronous
+            communication, database-per-service patterns, and resiliency
+            mechanisms such as retries, circuit breakers, and fallbacks.
+          </p>
+        </div>
+      </li>
+
+      <!-- STEP 3 -->
+      <li class="timeline-item">
+        <div class="step-header">
+          <h4>Technology Decisions</h4>
+          <span class="step-tag">Trade-offs</span>
+        </div>
+
+        <p class="step-summary">
+          Technology choices are made based on long-term value, not trends.
+        </p>
+
+        <div class="step-details">
+          <p>
+            I assess frameworks, libraries, and tools based on performance,
+            community support, security posture, and ease of maintenance.
+            Every decision considers operational cost and learning curve.
+          </p>
+          <p>
+            I prefer proven, production-tested solutions that minimize
+            technical debt and align with enterprise standards.
+          </p>
+        </div>
+      </li>
+
+      <!-- STEP 4 -->
+      <li class="timeline-item">
+        <div class="step-header">
+          <h4>Clean Implementation</h4>
+          <span class="step-tag">Execution</span>
+        </div>
+
+        <p class="step-summary">
+          I write clean, modular, testable code that is easy to understand
+          and evolve.
+        </p>
+
+        <div class="step-details">
+          <p>
+            I follow SOLID principles, proper layering, and design patterns
+            where appropriate. Code readability and consistency are
+            prioritized to support team collaboration.
+          </p>
+          <p>
+            I ensure meaningful logging, validation, and exception handling
+            to make systems observable and debuggable in production.
+          </p>
+        </div>
+      </li>
+
+      <!-- STEP 5 -->
+      <li class="timeline-item">
+        <div class="step-header">
+          <h4>Performance Optimization</h4>
+          <span class="step-tag">Efficiency</span>
+        </div>
+
+        <p class="step-summary">
+          Performance is treated as a feature, not an afterthought.
+        </p>
+
+        <div class="step-details">
+          <p>
+            I profile APIs, optimize database queries, and introduce caching
+            strategies where appropriate. Latency, throughput, and resource
+            utilization are continuously measured.
+          </p>
+          <p>
+            I carefully tune thread pools, connection pools, and asynchronous
+            flows to ensure systems perform reliably under high load.
+          </p>
+        </div>
+      </li>
+
+      <!-- STEP 6 -->
+      <li class="timeline-item">
+        <div class="step-header">
+          <h4>Monitoring & Continuous Improvement</h4>
+          <span class="step-tag">Reliability</span>
+        </div>
+
+        <p class="step-summary">
+          Production systems are continuously monitored and improved.
+        </p>
+
+        <div class="step-details">
+          <p>
+            I rely on logs, metrics, and alerts to gain visibility into system
+            behavior. Incidents are treated as learning opportunities to
+            improve resilience.
+          </p>
+          <p>
+            I actively refactor and enhance systems based on real-world usage
+            patterns, ensuring long-term stability and scalability.
+          </p>
+        </div>
+      </li>
+
+    </ol>
+
+  </div>
+
+</section>
+
+<!-- ===================================================== -->
+<!-- ============== ENGINEERING SHOWCASE ================= -->
+<!-- ===================================================== -->
+
+<section class="engineering-showcase">
+
+  <div class="container">
+
+    <h2 class="showcase-title">
+      Engineering That Survives Production
+    </h2>
+
+    <p class="showcase-subtitle">
+      Real backend design decisions focused on performance, scale, and reliability.
+    </p>
+
+    <!-- ================= CODE CARD ================= -->
+
+    <div class="code-card">
+
+      <div class="code-top">
+        <span class="code-badge">Spring Boot • Production API</span>
+        <button class="copy-btn" (click)="copyCode()">Copy</button>
+      </div>
+
+      <pre class="code-area"><code>
+<span class="anno">@RestController</span>
+<span class="anno">@RequestMapping</span>(<span class="str">"/employees"</span>)
+<span class="kw">class</span> <span class="cls">EmployeeController</span> &#123;
+
+  <span class="kw">private final</span> <span class="cls">EmployeeService</span> service;
+
+  <span class="anno">@GetMapping</span>(<span class="str">"/&#123;id&#125;"</span>)
+  <span class="cls">EmployeeDto</span> <span class="fn">getEmployee</span>(<span class="cls">Long</span> id) &#123;
+    <span class="kw">return</span> service.<span class="fn">fetchEmployee</span>(id);
+  &#125;
+&#125;
+      </code></pre>
+
+      <div class="code-footer">
+        ✔ Thin controller &nbsp; • &nbsp;
+        ✔ Async-safe &nbsp; • &nbsp;
+        ✔ Production-grade
+      </div>
+
+    </div>
+
+    <!-- ================= HIGHLIGHTS ================= -->
+
+    <div class="highlight-grid">
+
+      <div class="highlight-card perf">
+        <h4>⚡ Performance</h4>
+        <p>
+          Latency reduced by async processing and optimized DB access.
+        </p>
+      </div>
+
+      <div class="highlight-card async">
+        <h4>📨 Kafka Async</h4>
+        <p>
+          Non-critical workloads offloaded using event-driven architecture.
+        </p>
+      </div>
+
+      <div class="highlight-card reliable">
+        <h4>🛡 Reliability</h4>
+        <p>
+          Retries, circuit breakers, and failure isolation.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- ===================================================== -->
+    <!-- =============== SYSTEM & ARCHITECTURE ================= -->
+    <!-- ===================================================== -->
+
+    <section class="architecture-section">
+
+      <div class="container">
+
+        <h2 class="arch-title">System Architecture & Engineering Signals</h2>
+        <p class="arch-subtitle">
+          Designed for scale, security, and real-world production reliability
+        </p>
+
+        <!-- ================= FLOWS ================= -->
+
+        <div class="flow-grid">
+
+          <!-- ===== LEFT: BACKEND SYSTEM FLOW ===== -->
+          <div class="flow-card backend">
+
+            <h3>Backend System Flow</h3>
+
+            <pre class="flow-diagram">
+Client
+  ↓
+API Gateway
+  ↓
+Spring Boot Service
+  ↓        ↘
+Database   Kafka (Async)
+              ↓
+        Consumer Services
+        </pre>
+
+            <span class="flow-note">
+              Async isolation protects APIs from traffic spikes
+            </span>
+
+          </div>
+
+          <!-- ===== RIGHT: FULL STACK FLOW ===== -->
+          <div class="flow-card frontend">
+
+            <h3>Web Application Flow</h3>
+
+            <pre class="flow-diagram">
+Browser (Angular)
+   ↓
+REST API
+   ↓
+Service Layer
+   ↓
+Repository
+   ↓
+Database
+        </pre>
+
+            <span class="flow-note">
+              Clean separation across UI, API, and data layers
+            </span>
+
+          </div>
+
+        </div>
+
+        <!-- ================= ENGINEERING SIGNALS ================= -->
+
+        <div class="signal-grid">
+
+          <!-- SECURITY -->
+          <div class="signal-card security">
+            <h4>🔐 Security</h4>
+            <ul>
+              <li>JWT Authentication</li>
+              <li>Role-Based Access Control</li>
+              <li>API-level authorization</li>
+            </ul>
+          </div>
+
+          <!-- METRICS -->
+          <div class="signal-card metrics">
+            <h4>📊 Performance Impact</h4>
+            <ul>
+              <li><strong>Before:</strong> High latency under load</li>
+              <li><strong>After:</strong> 65% faster APIs</li>
+              <li>Stable during peak traffic</li>
+            </ul>
+          </div>
+
+          <!-- TESTING -->
+          <div class="signal-card testing">
+            <h4>🧪 Testing Philosophy</h4>
+            <ul>
+              <li>Unit tests for business logic</li>
+              <li>Integration tests for APIs</li>
+              <li>Failure & edge-case coverage</li>
+            </ul>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+    <!-- ===================================================== -->
+    <!-- ============ REAL-WORLD ENGINEERING SIGNALS ========== -->
+    <!-- ===================================================== -->
+
+    <section class="engineering-signals">
+
+      <div class="container">
+        <div class="signal-cards">
+
+          <!-- 🔥 OUTAGE STORY -->
+          <div class="signal-box outage">
+            <h4>🔥 Real Production Incident</h4>
+            <p>
+              A sudden traffic spike caused thread exhaustion due to
+              synchronous audit logging.
+              <strong>Root cause was isolated within 30 mins</strong>,
+              async Kafka offloading fixed the issue permanently.
+            </p>
+          </div>
+
+          <!-- 📦 CI/CD SNAPSHOT -->
+          <div class="signal-box cicd">
+            <h4>📦 Deployment & CI/CD</h4>
+            <ul>
+              <li>Git → PR review → Jenkins / Azure DevOps</li>
+              <li>Automated build, test & security scan</li>
+              <li>Zero-downtime deployment</li>
+            </ul>
+          </div>
+
+          <!-- 🧠 ADR -->
+          <div class="signal-box adr">
+            <h4>🧠 Architecture Decision Record</h4>
+            <ul>
+              <li><strong>Decision:</strong> Kafka for async processing</li>
+              <li><strong>Why:</strong> Latency isolation & scalability</li>
+              <li><strong>Result:</strong> 65% faster APIs, stable under load</li>
+            </ul>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- ===================== CAREER JOURNEY ==================== -->
+    <!-- ========================================================= -->
+
+    <section class="career-section">
+
+      <div class="container">
+
+        <h2 class="career-title">Career Journey</h2>
+        <p class="career-subtitle">
+          A progression focused on backend depth, scalability,
+          and production ownership.
+        </p>
+
+        <div class="career-timeline">
+
+          <!-- Target -->
+          <div class="career-item">
+            <span class="career-dot"></span>
+            <div class="career-card">
+              <h4>Senior Software Engineer</h4>
+              <span class="career-org">Target Corporate Services Pvt. Ltd.</span>
+              <span class="career-time">Nov 2024 – Present</span>
+              <p>
+                Leading backend development for enterprise microservices,
+                performance optimization, and production reliability
+                in high-traffic systems.
+              </p>
+            </div>
+          </div>
+
+          <!-- CGI -->
+          <div class="career-item">
+            <span class="career-dot"></span>
+            <div class="career-card">
+              <h4>Software Engineer</h4>
+              <span class="career-org">CGI Information Systems</span>
+              <span class="career-time">Jul 2024 – Nov 2024</span>
+              <p>
+                Worked on enterprise applications focusing on API design,
+                backend integrations, and CI/CD driven deployments.
+              </p>
+            </div>
+          </div>
+
+          <!-- Prodapt -->
+          <div class="career-item">
+            <span class="career-dot"></span>
+            <div class="career-card">
+              <h4>Software Engineer</h4>
+              <span class="career-org">Prodapt Solutions Pvt. Ltd.</span>
+              <span class="career-time">Dec 2021 – Nov 2023</span>
+              <p>
+                Built scalable backend services for telecom platforms,
+                optimized database queries, and improved system throughput.
+              </p>
+            </div>
+          </div>
+
+          <!-- Marcellus -->
+          <div class="career-item">
+            <span class="career-dot"></span>
+            <div class="career-card">
+              <h4>System Engineer</h4>
+              <span class="career-org">Marcellus Infotech Pvt. Ltd.</span>
+              <span class="career-time">Oct 2020 – Dec 2021</span>
+              <p>
+                Started professional journey by building core backend modules,
+                learning production debugging, and enterprise engineering basics.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+<!-- ========================================================= -->
+<!-- ============ PRODUCTION-PROVEN ENGINEERING ============= -->
+<!-- ========================================================= -->
+
+<section class="prod-eng">
+
+  <div class="container">
+
+    <!-- HEADER -->
+    <div class="prod-head">
+      <span class="prod-chip">REAL PRODUCTION EXPERIENCE</span>
+      <h2>Systems that survive scale, traffic & failures</h2>
+      <p>
+        I build backend systems that don’t just work in demos —
+        they continue to perform under real traffic,
+        strict SLAs, and production pressure.
       </p>
     </div>
 
-    <div class="col-md-6" data-aos="zoom-in" data-aos-delay="500">
-      <div class="card highlight-card p-4">
-      <i class="fas fa-tachometer-alt highlight-icon mb-2"></i>
-      <h5 class="card-title">Automation & CI/CD</h5>
-        <p class="card-text">Automated Azure DevOps pipelines, reducing deployment time by ~40% and ensuring consistent, error-free
-          production releases.
-          Implemented rollback strategies and monitored pipeline performance.
+    <!-- CORE SIGNALS -->
+    <div class="prod-cards">
+
+      <div class="prod-card blue">
+        <h4>⚡ Performance</h4>
+        <p>
+          Reduced API latency by restructuring service flows,
+          optimizing DB queries, and removing synchronous bottlenecks.
         </p>
+        <span>Impact: Faster APIs during peak load</span>
       </div>
-    </div>
-    <div class="col-md-6" data-aos="zoom-in" data-aos-delay="550">
-      <div class="card highlight-card p-4">
-        <i class="fas fa-bug highlight-icon mb-2"></i>
-        <h5 class="card-title">Debugging & Reliability</h5>
-        <p class="card-text">Streamlined debugging processes using <strong>Log4j, Postman, Swagger</strong>, and incident management tools.
-          Achieved a 99% success rate in resolving production issues and improving system reliability.
+
+      <div class="prod-card violet">
+        <h4>📨 Async & Scale</h4>
+        <p>
+          Introduced Kafka to offload non-critical workloads,
+          protecting request threads from traffic spikes.
         </p>
+        <span>Impact: Stable throughput at scale</span>
       </div>
-    </div>
-    <div class="col-md-6" data-aos="zoom-in" data-aos-delay="600">
-      <div class="card highlight-card p-4">
-        <i class="fas fa-users highlight-icon mb-2"></i>
-        <h5 class="card-title">Team Collaboration</h5>
-        <p class="card-text">Collaborated with cross-functional teams, mentored juniors, and actively contributed to knowledge sharing in
-          Agile workflows.
-          Improved project delivery timelines and code quality through best practices.
+
+      <div class="prod-card green">
+        <h4>🛡 Reliability</h4>
+        <p>
+          Designed retries, circuit breakers,
+          and failure isolation to prevent cascading outages.
         </p>
+        <span>Impact: 99.9% production uptime</span>
       </div>
+
+      <div class="prod-card red">
+        <h4>🔐 Security</h4>
+        <p>
+          Enforced JWT authentication and role-based access
+          across all APIs using Spring Security.
+        </p>
+        <span>Impact: Secure enterprise APIs</span>
+      </div>
+
     </div>
-      <div class="col-md-6" data-aos="zoom-in" data-aos-delay="650">
-    <div class="card highlight-card p-4">
-      <i class="fas fa-shield-alt highlight-icon mb-2"></i>
-      <h5 class="card-title">Security & Best Practices</h5>
-      <p class="card-text">Implemented <strong>Spring Security, JWT authentication, and role-based access controls</strong>.  
-        Ensured secure code practices and compliance with industry standards, reducing vulnerability risks.
-      </p>
+
+    <!-- REALITY STATEMENT -->
+    <div class="prod-truth">
+      “Code is done when it survives production —
+      not when it compiles.”
     </div>
+
   </div>
-  </div>
+
 </section>
+
+
