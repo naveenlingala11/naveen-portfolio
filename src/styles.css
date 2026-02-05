@@ -95,8 +95,8 @@ main.main-content {
 
 .brand-name {
   background: linear-gradient(90deg, #ffb703, #fb8500);
-  background-clip: text;
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   font-weight: 700;
 }

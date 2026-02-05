@@ -51,7 +51,7 @@ markAllAsUnread(): Observable<any> {
     const formspreeUrl = 'https://formspree.io/f/mzzkzvyz'; // ✅ your verified Formspree endpoint
     const payload = {
       name: 'Naveen Portfolio Notifier',
-      email: 'naveen84815@gmail.com',
+      email: 'naveentechie11@gmail.com',
       message: `${subject}\n\n${message}`
     };
 
