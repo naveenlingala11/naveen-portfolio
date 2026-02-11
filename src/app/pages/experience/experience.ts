@@ -69,7 +69,7 @@ export class Experience_Component {
    * ================================
    */
   experienceSummary = {
-    totalExperience: '4.9+ Years',
+    totalExperience: '4 Years',
     specialization: 'Java Backend Engineer',
     architecture: 'Microservices',
     cloudDevOps: 'Azure DevOps',
@@ -196,62 +196,54 @@ export class Experience_Component {
    */
   experiences: Experience[] = [
 
-    /**
-     * -------------------------------
-     * TARGET CORPORATE SERVICES
-     * -------------------------------
-     */
     {
-      company: 'Target Corporate Services Private Limited',
+      company: 'Capgemini',
       location: 'Bangalore, India',
-      role: 'Senior Software Engineer',
+      role: 'Software Engineer',
       duration: 'Nov 2024 – Present',
       expanded: false,
       responsibilities: [
-        'Architected and developed high-performance backend microservices using Java 8/11 and Spring Boot for enterprise payroll and banking systems.',
-        'Designed and implemented RESTful APIs following microservices architecture, SOLID principles, and clean coding standards.',
-        'Reduced API response time by 30% by optimizing backend logic, SQL queries, and introducing Redis-based caching.',
-        'Enhanced transaction processing speed by 40% through database query tuning, indexing, and schema optimization.',
-        'Implemented secure authentication and authorization using Spring Security with JWT-based token management.',
-        'Developed inter-service communication using Feign clients for seamless microservice integration.',
-        'Automated CI/CD pipelines using Azure DevOps, significantly reducing deployment cycle time.',
-        'Integrated Swagger/OpenAPI for API documentation, testing, and client collaboration.',
-        'Handled production incidents, log analysis, and root cause analysis using Log4j.',
-        'Actively participated in Agile/Scrum ceremonies, sprint planning, code reviews, and retrospectives.'
+        'Developed and maintained scalable backend microservices using Java, Spring Boot, Hibernate, and REST APIs.',
+        'Designed service and DAO layers following layered architecture and design patterns.',
+        'Implemented JPA and Hibernate ORM for efficient data persistence.',
+        'Improved backend performance using caching and asynchronous processing.',
+        'Integrated Angular frontend with Spring Boot backend services.',
+        'Performed unit testing using JUnit and Mockito.',
+        'Automated build and deployment processes using CI/CD pipelines.',
+        'Documented API endpoints and versioning details.',
+        'Participated in Agile ceremonies and sprint reviews.'
       ],
       tags: [
-        'Java 8/11',
+        'Java',
         'Spring Boot',
+        'Hibernate',
+        'JPA',
+        'PostgreSQL',
         'Microservices',
-        'MySQL',
-        'Redis',
-        'Azure DevOps',
-        'Swagger',
-        'Spring Security'
+        'Angular',
+        'CI/CD'
       ],
       projects: [
         {
-          name: 'WinOM Microservices (Payroll)',
-          client: 'Windstream',
-          role: 'Senior Software Engineer',
-          duration: 'Nov 2024 – Present',
-          description: 'Enhancement and modernization of legacy payroll systems into scalable microservices.',
+          name: 'Academy Sports + Outdoors (E-Commerce)',
+          client: 'SAPIENT',
+          role: 'Software Engineer – API Developer',
+          duration: 'Dec 2021 – Nov 2023',
+          description: 'High-scale e-commerce backend platform.',
           expanded: false,
           responsibilities: [
-            'Designed RESTful APIs using Spring Boot.',
-            'Implemented business validations and workflow modules.',
-            'Optimized backend latency and performance.',
-            'Managed builds and dependencies using Maven.',
-            'Used Git for version control and collaborative development.'
+            'Developed REST APIs using Spring Boot.',
+            'Implemented DAO and Service layers.',
+            'Performed unit testing using Mockito.',
+            'Optimized application performance.',
+            'Used Maven and Git.'
           ],
           techStack: [
             'Java',
             'Spring Boot',
-            'Microservices',
             'Hibernate',
-            'MySQL',
-            'Redis',
-            'Azure DevOps'
+            'PostgreSQL',
+            'Microservices'
           ]
         }
       ]
@@ -326,108 +318,56 @@ export class Experience_Component {
       duration: 'Dec 2021 – Nov 2023',
       expanded: false,
       responsibilities: [
-        'Developed and maintained scalable backend microservices using Java, Spring Boot, Hibernate, and REST APIs.',
-        'Designed service and DAO layers following layered architecture and design patterns.',
-        'Implemented JPA and Hibernate ORM for efficient data persistence.',
-        'Improved backend performance using caching and asynchronous processing.',
-        'Integrated Angular frontend with Spring Boot backend services.',
-        'Performed unit testing using JUnit and Mockito.',
-        'Automated build and deployment processes using CI/CD pipelines.',
-        'Documented API endpoints and versioning details.',
-        'Participated in Agile ceremonies and sprint reviews.'
+        'Architected and developed high-performance backend microservices using Java 8/11 and Spring Boot for enterprise payroll and banking systems.',
+        'Designed and implemented RESTful APIs following microservices architecture, SOLID principles, and clean coding standards.',
+        'Reduced API response time by 30% by optimizing backend logic, SQL queries, and introducing Redis-based caching.',
+        'Enhanced transaction processing speed by 40% through database query tuning, indexing, and schema optimization.',
+        'Implemented secure authentication and authorization using Spring Security with JWT-based token management.',
+        'Developed inter-service communication using Feign clients for seamless microservice integration.',
+        'Automated CI/CD pipelines using Azure DevOps, significantly reducing deployment cycle time.',
+        'Integrated Swagger/OpenAPI for API documentation, testing, and client collaboration.',
+        'Handled production incidents, log analysis, and root cause analysis using Log4j.',
+        'Actively participated in Agile/Scrum ceremonies, sprint planning, code reviews, and retrospectives.'
       ],
       tags: [
-        'Java',
+        'Java 8/11',
         'Spring Boot',
-        'Hibernate',
-        'JPA',
-        'PostgreSQL',
         'Microservices',
-        'Angular',
-        'CI/CD'
+        'MySQL',
+        'Redis',
+        'Azure DevOps',
+        'Swagger',
+        'Spring Security'
       ],
       projects: [
         {
-          name: 'Academy Sports + Outdoors (E-Commerce)',
-          client: 'SAPIENT',
-          role: 'Software Engineer – API Developer',
-          duration: 'Dec 2021 – Nov 2023',
-          description: 'High-scale e-commerce backend platform.',
+          name: 'WinOM Microservices (Payroll)',
+          client: 'Windstream',
+          role: 'Software Engineer',
+          duration: 'Nov 2024 – Present',
+          description: 'Enhancement and modernization of legacy payroll systems into scalable microservices.',
           expanded: false,
           responsibilities: [
-            'Developed REST APIs using Spring Boot.',
-            'Implemented DAO and Service layers.',
-            'Performed unit testing using Mockito.',
-            'Optimized application performance.',
-            'Used Maven and Git.'
+            'Designed RESTful APIs using Spring Boot.',
+            'Implemented business validations and workflow modules.',
+            'Optimized backend latency and performance.',
+            'Managed builds and dependencies using Maven.',
+            'Used Git for version control and collaborative development.'
           ],
           techStack: [
             'Java',
             'Spring Boot',
-            'Hibernate',
-            'PostgreSQL',
-            'Microservices'
-          ]
-        }
-      ]
-    },
-
-    /**
-     * -------------------------------
-     * MARCELLUS INFOTECH
-     * -------------------------------
-     */
-    {
-      company: 'Marcellus Infotech Pvt. Ltd.',
-      location: 'Bangalore, India',
-      role: 'System Engineer',
-      duration: 'Oct 2020 – Dec 2021',
-      expanded: false,
-      responsibilities: [
-        'Developed enterprise-grade Java web applications using Spring, Spring Boot, and Hibernate.',
-        'Worked on Employee–Client Management System.',
-        'Designed Controllers, Service, and DAO layers.',
-        'Wrote optimized HQL and SQL queries using MySQL.',
-        'Implemented authentication and exception handling.',
-        'Performed unit testing and debugging.',
-        'Configured applications for multiple environments.',
-        'Deployed applications on Apache Tomcat.',
-        'Monitored logs and resolved runtime issues.'
-      ],
-      tags: [
-        'Java',
-        'Spring Boot',
-        'Hibernate',
-        'MySQL',
-        'REST APIs',
-        'Tomcat',
-        'Maven'
-      ],
-      projects: [
-        {
-          name: 'Employee–Client Management System',
-          client: 'ACFEA Tour Consultants (US)',
-          role: 'System Engineer',
-          duration: 'Oct 2020 – Dec 2021',
-          description: 'Web-based HR and client management portal.',
-          expanded: false,
-          responsibilities: [
-            'Developed backend modules using Java and Spring.',
-            'Implemented Controllers, Services, and DAO layers.',
-            'Optimized HQL and SQL queries.',
-            'Deployed applications on Tomcat server.',
-            'Provided production support.'
-          ],
-          techStack: [
-            'Java',
-            'Spring',
+            'Microservices',
             'Hibernate',
             'MySQL',
-            'Tomcat'
+            'Redis',
+            'Azure DevOps'
           ]
         }
       ]
-    }
+
+    },
+
   ];
 
   /**

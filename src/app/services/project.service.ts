@@ -22,8 +22,7 @@ export class ProjectService {
     return this.http.put<Project>(`${this.apiUrl}/${id}`, project);
   }
 
-  deleteProject(id: number): Observable<any> {
+  deleteProject(id: number): Observable<string> {
     return this.http.delete(`${this.apiUrl}/${id}`, { responseType: 'text' });
   }
-
 }

@@ -1,49 +1,172 @@
 <section class="projects-modern">
-  <h2 class="projects-heading">🚀 My Featured Projects</h2>
-  <p class="projects-subtitle">
-    A collection of modern, scalable web apps built with Java, Spring Boot, and Angular.
-  </p>
 
-  <!-- Loading state -->
-  <div *ngIf="loading" class="loading">Loading projects...</div>
+  <!-- ========================= -->
+  <!-- HERO: WHO YOU ARE -->
+  <!-- ========================= -->
+  <div class="hero-block">
+    <h1>I Build Scalable Digital Products</h1>
+    <p class="hero-subtitle">
+      Full-stack engineer focused on <b>system design</b>,
+      <b>clean APIs</b>, <b>real-time systems</b> and
+      <b>production-grade frontend architecture</b>.
+    </p>
 
-  <!-- Error state -->
-  <div *ngIf="error && !loading" class="error">
-    Unable to load projects. Please try again later.
+    <div class="hero-proof">
+      <div>
+        <strong>50K+</strong>
+        <span>Lines of Production Code</span>
+      </div>
+      <div>
+        <strong>15+</strong>
+        <span>Independent Systems Built</span>
+      </div>
+      <div>
+        <strong>End-to-End</strong>
+        <span>Ownership (UI → DB)</span>
+      </div>
+    </div>
   </div>
 
-  <!-- Projects -->
+  <!-- ========================= -->
+  <!-- FLAGSHIP PRODUCT -->
+  <!-- ========================= -->
+  <div class="flagship">
+
+    <span class="flagship-label">FLAGSHIP PLATFORM</span>
+    <h2>UptrixHub</h2>
+
+    <p class="flagship-desc">
+      <b>UptrixHub</b> is a full-scale gamified platform engineered
+      to combine learning, coding practice, real-time multiplayer,
+      achievements, XP systems and competition into a single ecosystem.
+    </p>
+
+    <!-- WHAT MAKES IT SERIOUS -->
+    <div class="flagship-reasons">
+      <div>
+        <h4>Product-Driven</h4>
+        <p>
+          Designed as a platform, not a demo.
+          Every module integrates with XP, achievements and analytics.
+        </p>
+      </div>
+      <div>
+        <h4>System-First Architecture</h4>
+        <p>
+          Modular backend services, clean REST APIs,
+          WebSocket real-time engines and scalable data models.
+        </p>
+      </div>
+      <div>
+        <h4>Gamification at Core</h4>
+        <p>
+          XP, streaks, ranks and leaderboards
+          influence user behavior across all modules.
+        </p>
+      </div>
+    </div>
+
+    <!-- HARD METRICS -->
+    <div class="flagship-metrics">
+      <div><strong>20+</strong><span>Platform Modules</span></div>
+      <div><strong>10+</strong><span>Gamification Systems</span></div>
+      <div><strong>5+</strong><span>Real-Time Engines</span></div>
+      <div><strong>JWT</strong><span>Secure Auth Layer</span></div>
+      <div><strong>CI/CD</strong><span>Auto Deployment</span></div>
+    </div>
+
+    <!-- SYSTEM BREAKDOWN -->
+    <div class="flagship-systems">
+      <h3>Core Systems Engineered</h3>
+
+      <ul>
+        <li><b>Learning Engine</b> — course progression, resume learning, XP rewards</li>
+        <li><b>Quiz Engine</b> — timed evaluation, scoring logic, accuracy metrics</li>
+        <li><b>Coding Platform</b> — execution flow, validation, difficulty tiers</li>
+        <li><b>Bug Hunter</b> — real-world debugging scenarios</li>
+        <li><b>Multiplayer Games</b> — WebSocket sync, matchmaking, state control</li>
+        <li><b>Gamification Core</b> — levels, streaks, achievements, leaderboards</li>
+      </ul>
+    </div>
+
+    <!-- ARCHITECTURE -->
+    <div class="flagship-architecture">
+      <h3>Architecture Highlights</h3>
+      <p>
+        Angular standalone components on the frontend,
+        Spring Boot REST + WebSocket services on the backend,
+        PostgreSQL relational schema design and JWT-based security.
+      </p>
+
+      <div class="arch-tags">
+        <span>Angular</span>
+        <span>Spring Boot</span>
+        <span>REST APIs</span>
+        <span>WebSockets</span>
+        <span>PostgreSQL</span>
+        <span>JWT Security</span>
+      </div>
+    </div>
+
+    <!-- EVOLUTION -->
+    <div class="flagship-evolution">
+      <h3>Product Evolution</h3>
+      <p>
+        Planned expansions include AI-assisted mentoring,
+        tournaments, team competitions, mobile clients
+        and analytics-driven personalization.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- ========================= -->
+  <!-- OTHER PROJECTS -->
+  <!-- ========================= -->
+  <div class="other-projects">
+    <h2>Additional Professional Projects</h2>
+    <p>
+      These projects demonstrate backend engineering,
+      API integrations, frontend architecture and real-world problem solving.
+    </p>
+  </div>
+
+  <!-- STATES -->
+  <p *ngIf="loading" class="state">Loading projects…</p>
+  <p *ngIf="error" class="state error">Failed to load projects.</p>
+
+  <!-- PROJECT LIST -->
   <div class="projects-container" *ngIf="!loading && !error">
-    <div class="project-card fade-up" *ngFor="let project of projects; let i = index"
-      [style.animationDelay]="i * 0.2 + 's'">
-      <div class="project-img-container">
-        <img [src]="project.imageUrl" [alt]="project.title" class="project-img" />
-        <div class="overlay">
-          <h3>{{ project.title }}</h3>
-          <p>{{ project.description }}</p>
-          <div class="overlay-buttons">
-            <a [href]="project.githubUrl" target="_blank" class="view-btn github-btn">
-              <i class="fa-brands fa-github"></i> GitHub
-            </a>
-            <a *ngIf="project.demoUrl" [href]="project.demoUrl" target="_blank" class="view-btn demo-btn">
-              <i class="fa-solid fa-play"></i> Demo
-            </a>
-          </div>
-        </div>
+
+    <div class="project-row" *ngFor="let project of projects">
+
+      <div class="project-image">
+        <img [src]="project.imageUrl || 'assets/images/default.jpg'" />
       </div>
 
-      <div class="project-details">
-        <h4>{{ project.title }}</h4>
+      <div class="project-info">
+        <h3>{{ project.title }}</h3>
         <p>{{ project.description }}</p>
+
         <div class="tech-stack">
-          <span class="tech-badge" *ngFor="let tech of project.techStack">{{ tech }}</span>
+          <span *ngFor="let tech of project.techStack">{{ tech }}</span>
         </div>
+
+        <div class="links">
+          <a [href]="project.githubUrl" target="_blank">GitHub</a>
+          <a *ngIf="project.demoUrl" [href]="project.demoUrl" target="_blank">Live Demo</a>
+        </div>
+
+        <button
+          *ngIf="authService.isAdmin()"
+          (click)="deleteProject(project.id)"
+          class="delete-btn">
+          Delete
+        </button>
       </div>
-      <!-- Optional Delete Button -->
-      <button *ngIf="authService.isAdmin()" (click)="deleteProject(project.id)" class="btn btn-danger btn-sm">
-        🗑️ Delete
-      </button>
+
     </div>
+
   </div>
 
 </section>

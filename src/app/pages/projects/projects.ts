@@ -17,7 +17,10 @@ export class Projects implements OnInit {
   loading = true;
   error = false;
 
-  constructor(private projectService: ProjectService, public authService: AuthService) { }
+  constructor(
+    private projectService: ProjectService,
+    public authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.projectService.getAll().subscribe({
@@ -26,30 +29,22 @@ export class Projects implements OnInit {
         this.loading = false;
       },
       error: (err) => {
-        console.error('Error fetching projects:', err);
+        console.error(err);
         this.error = true;
         this.loading = false;
       }
     });
   }
-  deleteProject(id?: number): void {
-    if (!id) return;
 
-    if (confirm('Are you sure you want to delete this project?')) {
-      this.projectService.deleteProject(id).subscribe({
-        next: () => {
-          this.projects = this.projects.filter(p => p.id !== id);
-          console.log(`✅ Project ${id} deleted.`);
-        },
-        error: (err) => console.error('Error deleting project:', err)
-      });
-    }
+  deleteProject(id?: number): void {
+    if (!id || !confirm('Are you sure you want to delete this project?')) return;
+
+    this.projectService.deleteProject(id).subscribe(() => {
+      this.projects = this.projects.filter(p => p.id !== id);
+    });
   }
 
   isAdmin(): boolean {
-    const token = localStorage.getItem('token');
-    return !!token; // simple check; can be extended later to check role from JWT
+    return !!localStorage.getItem('token');
   }
-
-
 }
